@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>นำ macOS เข้าสู่องค์กร Microsoft — ข้อกำหนด · สถาปัตยกรรม · ค่าใช้จ่าย</title>
+<style>
+:root{
+  --bg-slide:#FFFFFF; --bg-title:#0f172a; --bg-title-end:#1e3a5f;
+  --accent-teal:#2563eb; --accent-teal-light:#fbbf24;
+  --text-primary:#0f172a; --text-secondary:#475569; --text-muted:#64748b;
+  --text-footer:#BBBBBB; --border-light:#e2e8f0; --bg-donut-track:#dbeafe;
+  --ink:#0f172a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Noto Sans Thai','Inter','Leelawadee UI','Segoe UI',system-ui,-apple-system,sans-serif;color:var(--text-primary);background:#f1f5f9}
+img{max-width:100%}
+a{color:var(--accent-teal)}
+
+/* ================= TOP NAV ================= */
+.topnav{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:18px;padding:12px 28px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:var(--ink)}
+.brand .sq{width:22px;height:22px;background:linear-gradient(135deg,var(--bg-title),var(--accent-teal));border-radius:4px;display:inline-block}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap;margin-left:14px}
+.nav-link{border:0;background:none;font-size:14.5px;color:#445;padding:8px 13px;border-radius:8px;cursor:pointer;font-weight:600}
+.nav-link:hover{background:#dbeafe;color:var(--bg-title)}
+.nav-link.active{background:var(--bg-title);color:#fff}
+.nav-actions{margin-left:auto;display:flex;gap:10px}
+.btn{border:0;border-radius:9px;padding:10px 18px;font-size:14.5px;font-weight:700;cursor:pointer}
+.btn-primary{background:var(--bg-title);color:#fff}
+.btn-primary:hover{background:var(--accent-teal)}
+.btn-ghost{background:#fff;color:var(--bg-title);border:1.5px solid var(--accent-teal)}
+.btn-ghost:hover{background:#dbeafe}
+
+/* ================= WEBSITE ================= */
+.hero{background:linear-gradient(135deg,#0B132A 0%,#0F172A 55%,#1E3A5F 100%);color:#fff;padding:88px 40px 76px;text-align:center}
+.hero .kicker{letter-spacing:4px;font-size:13.5px;text-transform:uppercase;color:var(--accent-teal-light);font-weight:700}
+.hero h1{font-size:54px;line-height:1.15;margin:16px auto 14px;max-width:1100px;font-weight:800}
+.hero p{font-size:19.5px;color:#cbd5e1;max-width:900px;margin:0 auto 30px;line-height:1.6}
+.hero .meta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);padding:8px 16px;border-radius:999px;font-size:14.5px}
+.sec{max-width:1180px;margin:0 auto;padding:64px 32px}
+.sec h2{font-size:36px;margin:0 0 8px;color:var(--ink);font-weight:800}
+.sec .sub{color:var(--text-secondary);font-size:17px;margin:0 0 30px}
+.card-grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.wcard{background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:22px 22px;box-shadow:0 2px 10px rgba(15,23,42,.05)}
+.wcard h3{margin:0 0 8px;font-size:19px;color:var(--bg-title)}
+.wcard p,.wcard li{font-size:15.5px;color:var(--text-secondary);line-height:1.65}
+.wcard ul{margin:8px 0 0;padding-left:20px}
+.num{display:inline-flex;width:34px;height:34px;border-radius:9px;background:var(--bg-donut-track);color:var(--bg-title);font-weight:800;align-items:center;justify-content:center;margin-bottom:10px}
+.tbl{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(15,23,42,.06);font-size:15.5px}
+.tbl th{background:var(--bg-title);color:#fff;text-align:left;padding:13px 15px;font-weight:700;font-size:14.5px}
+.tbl td{padding:11px 15px;border-bottom:1px solid var(--border-light);color:#334155;vertical-align:top}
+.tbl tr:nth-child(even) td{background:#f8fafc}
+.tbl .ok{color:#16a34a;font-weight:800}
+.tbl .no{color:#dc2626;font-weight:800}
+.tbl .mut{color:#94a3b8;font-weight:800}
+.code{font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;background:#0f172a;color:#93c5fd;padding:2px 7px;border-radius:6px;font-size:13.5px}
+.note{background:#fffbea;border-left:4px solid #f59e0b;padding:14px 18px;border-radius:0 10px 10px 0;font-size:15.5px;color:#7c5e10;line-height:1.6}
+.sec-foot{border-top:1px solid var(--border-light);margin-top:54px;padding-top:22px;color:var(--text-muted);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.sec-foot a{color:#64748b;text-decoration:none}
+.diagram-wrap{background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:20px;overflow:hidden;box-shadow:0 2px 10px rgba(15,23,42,.06)}
+.diagram-wrap svg{width:100%;height:auto;display:block}
+
+/* ================= PRESENTATION ================= */
+#presOverlay{position:fixed;inset:0;background:#0b132a;z-index:1000;display:none}
+#presOverlay.active{display:block}
+#slideContainer{position:absolute;inset:0;overflow:hidden}
+.pres-slide{position:absolute !important;width:1920px;height:1080px;transform-origin:top left;background:var(--bg-slide);display:none !important;flex-direction:column;overflow:hidden;color:var(--text-primary)}
+.pres-slide.active{display:flex !important}
+.s-inner{flex:1;min-height:0;padding:52px 96px 26px;display:flex;flex-direction:column}
+.s-top{height:6px;background:linear-gradient(90deg,var(--bg-title),var(--accent-teal));flex:none}
+.s-head{display:flex;align-items:center;justify-content:space-between;padding:16px 96px 0;flex:none}
+.s-head .lhs{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:700;color:#475569;letter-spacing:.5px}
+.s-head .sq{width:20px;height:20px;background:linear-gradient(135deg,var(--bg-title),var(--accent-teal));border-radius:4px}
+.s-head .rhs{font-size:13.5px;color:var(--text-muted)}
+.s-label{font-size:15px;letter-spacing:3.5px;text-transform:uppercase;color:var(--accent-teal);font-weight:800;margin-bottom:10px}
+.s-title{font-size:46px;font-weight:800;color:var(--ink);margin:0 0 6px;line-height:1.18}
+.s-sub{font-size:19px;color:var(--text-secondary);margin:2px 0 20px;line-height:1.5}
+.s-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:16px}
+.s-foot{flex:none;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border-light);margin:0 96px;padding:12px 0 14px;font-size:14px;color:var(--text-footer)}
+.s-foot .pg{font-weight:800;color:#64748b}
+
+/* title slide */
+.slide-title{background:linear-gradient(135deg,#0B132A 0%,#0F172A 55%,#1E3A5F 100%);color:#fff}
+.slide-title .s-inner{justify-content:center;padding:90px 120px}
+.slide-title .kicker{letter-spacing:5px;font-size:16px;text-transform:uppercase;color:var(--accent-teal-light);font-weight:800}
+.slide-title h1{font-size:80px;line-height:1.1;margin:22px 0 20px;font-weight:800;max-width:1500px}
+.slide-title .lead{font-size:26px;color:#cbd5e1;max-width:1350px;line-height:1.55;margin:0 0 34px}
+.slide-title .tmeta{display:flex;gap:14px;flex-wrap:wrap}
+.slide-title .chip{font-size:16.5px;padding:10px 20px}
+.slide-title .conf{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.22);padding:14px 120px;font-size:14px;color:#cbd5e1;display:flex;justify-content:space-between}
+
+/* layout helpers inside slides */
+.row{display:flex;gap:26px;min-height:0}
+.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.steps{display:flex;flex-direction:column;gap:13px}
+.step{display:flex;gap:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px 18px;align-items:flex-start}
+.step .n{flex:none;width:34px;height:34px;border-radius:9px;background:var(--bg-title);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:16.5px}
+.step .tx{font-size:17.5px;line-height:1.5;color:#25364a}
+.step .tx b{color:var(--bg-title)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cards2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.pcard{background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:20px 24px;box-shadow:0 3px 12px rgba(15,23,42,.06);display:flex;flex-direction:column;gap:8px}
+.pcard h3{margin:0;font-size:22px;color:var(--bg-title);font-weight:800}
+.pcard p{margin:0;font-size:16.5px;color:var(--text-secondary);line-height:1.6}
+.pcard .ic{font-size:26px}
+.pcard .big{font-size:40px;font-weight:800;color:var(--accent-teal);line-height:1.15}
+.rulebox{background:linear-gradient(120deg,#0f172a,#1e3a5f);color:#f1f5f9;border-radius:14px;padding:20px 26px;font-size:21px;line-height:1.55;display:flex;gap:16px;align-items:center}
+.rulebox .lk{font-size:30px}
+.tbl-wrap{background:#fff;border:1px solid var(--border-light);border-radius:14px;overflow:hidden;box-shadow:0 3px 12px rgba(15,23,42,.06)}
+.tbl-s{width:100%;border-collapse:collapse;font-size:16.5px}
+.tbl-s th{background:var(--bg-title);color:#fff;text-align:left;padding:12px 18px;font-weight:700;font-size:16px}
+.tbl-s td{padding:10px 18px;border-bottom:1px solid var(--border-light);color:#334155;vertical-align:middle}
+.tbl-s tr:last-child td{border-bottom:0}
+.tbl-s tr:nth-child(even) td{background:#f8fafc}
+.tbl-s .ok{color:#16a34a;font-weight:800}
+.tbl-s .no{color:#dc2626;font-weight:800}
+.tbl-s .mut{color:#b0b8c1;font-weight:800}
+.tbl-s .ctr{text-align:center}
+.tbl-s .num-c{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#0f172a}
+.small-note{font-size:15.5px;color:#7d8b99;line-height:1.55}
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:14.5px;font-weight:800;background:var(--bg-donut-track);color:var(--bg-title);margin-right:6px}
+.pill.warn{background:#fff3d6;color:#a16207}
+.pill.red{background:#fde8e8;color:#b91c1c}
+.pill.green{background:#ecfdf5;color:#16a34a}
+.gcols{display:grid;grid-template-columns:1fr 1fr;gap:24px;min-height:0}
+.gcols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;min-height:0}
+.chain{background:#0f172a;border-radius:12px;padding:16px 20px;color:#93c5fd;font-family:ui-monospace,Consolas,monospace;font-size:16px;line-height:1.75}
+.chain b{color:#fbbf24}
+.checklist{display:flex;flex-direction:column;gap:12px}
+.ck{display:flex;gap:14px;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:13px 18px;font-size:19px;color:#25364a}
+.ck .box{flex:none;width:26px;height:26px;border-radius:7px;border:2.5px solid var(--accent-teal);background:#fff}
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.dd{border-radius:14px;padding:24px 26px;box-shadow:0 3px 12px rgba(15,23,42,.06)}
+.dd.do{background:#ecfdf5;border:1px solid #a7f3d0}
+.dd.dont{background:#fef2f2;border:1px solid #fecaca}
+.dd h3{margin:0 0 12px;font-size:24px}
+.dd.do h3{color:#16a34a}
+.dd.dont h3{color:#b91c1c}
+.dd ul{margin:0;padding-left:24px;display:flex;flex-direction:column;gap:9px}
+.dd li{font-size:18px;line-height:1.5;color:#334155}
+.pit{display:flex;gap:14px;background:#fff;border:1px solid var(--border-light);border-left:5px solid #f59e0b;border-radius:0 12px 12px 0;padding:14px 20px;box-shadow:0 2px 8px rgba(15,23,42,.05)}
+.pit .ic{font-size:22px;flex:none}
+.pit .tx{font-size:17px;line-height:1.55;color:#334155}
+.pit .tx b{color:var(--bg-title)}
+.slide-diag{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;min-width:0}
+.slide-diag svg{max-height:640px;width:100%;height:auto;min-width:0}
+
+/* controls */
+.pres-controls{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;gap:10px;align-items:center;background:rgba(11,19,42,.94);border:1px solid rgba(255,255,255,.14);padding:9px 14px;border-radius:14px;z-index:1010}
+.pres-controls button{border:0;background:rgba(255,255,255,.12);color:#fff;font-size:15px;font-weight:700;padding:9px 16px;border-radius:9px;cursor:pointer}
+.pres-controls button:hover{background:var(--accent-teal)}
+.pres-controls .counter{color:#cfe9e1;font-size:15px;font-weight:700;min-width:74px;text-align:center}
+
+/* edit mode */
+#editBar{position:fixed;left:0;right:0;top:0;background:#0f172a;color:#fff;display:none;align-items:center;gap:12px;padding:10px 20px;z-index:1200}
+body.edit-active #editBar{display:flex}
+#editBar .badge{background:#f59e0b;color:#111;font-weight:800;padding:5px 12px;border-radius:7px;font-size:14px}
+#editBar button{border:0;background:#1e293b;color:#fff;font-weight:700;font-size:14px;padding:8px 14px;border-radius:8px;cursor:pointer}
+#editBar button:hover{background:var(--accent-teal)}
+.manage-bar{position:absolute;top:10px;right:14px;display:none;gap:6px;z-index:60}
+body.edit-active .manage-bar{display:flex}
+.manage-bar button{border:0;background:rgba(15,23,42,.82);color:#fff;font-size:16px;padding:6px 11px;border-radius:8px;cursor:pointer}
+[contenteditable="true"]{outline:2px dashed #f59e0b;outline-offset:3px;border-radius:4px}
+@media (max-width:900px){
+  .g3,.g4,.g2{grid-template-columns:1fr}
+  .hero h1{font-size:34px}
+  .sec h2{font-size:28px}
+  .topnav{flex-wrap:wrap}
+  .nav-actions{margin-left:0}
+  .tbl-wrap{overflow-x:auto}
+  .tbl{min-width:640px}
+}
+</style>
+</head>
+<body>
+
+<!-- ======================= TOP NAV ======================= -->
+<nav class="topnav">
+  <div class="brand"><span class="sq"></span> macOS × Microsoft 365</div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showSection('overview')">ภาพรวม</button>
+    <button class="nav-link" onclick="showSection('requirements')">ข้อกำหนด</button>
+    <button class="nav-link" onclick="showSection('architecture')">สถาปัตยกรรม</button>
+    <button class="nav-link" onclick="showSection('cost')">ค่าใช้จ่าย</button>
+    <button class="nav-link" onclick="showSection('roadmap')">แผน &amp; ความเสี่ยง</button>
+  </div>
+  <div class="nav-actions">
+    <button class="btn btn-ghost" onclick="toggleEditMode()">Edit Mode</button>
+    <button class="btn btn-primary" onclick="enterPresentation()">▶ Presentation Mode</button>
+  </div>
+</nav>
+
+<!-- ======================= WEBSITE ======================= -->
+<header class="hero">
+  <div class="kicker">IT Architecture Proposal · macOS Adoption</div>
+  <h1>เอา macOS เข้ามาใช้ในองค์กร<br>ที่ Microsoft เป็นซอฟต์แวร์หลัก</h1>
+  <p>สิ่งที่ต้องมี สถาปัตยกรรมอ้างอิง และค่าใช้จ่ายเบื้องต้น — เริ่มจาก Identity (Entra ID) + Device management (Intune/ABM) เป็นแกน แล้วค่อยต่อ apps, ข้อมูล และความปลอดภัย</p>
+  <div class="meta">
+    <span class="chip">Apple Business Manager (ฟรี)</span>
+    <span class="chip">Intune รวมอยู่ใน license</span>
+    <span class="chip">MacBook Air เริ่ม ฿44,900</span>
+    <span class="chip">ราคา ณ 23 พ.ย. 2026</span>
+  </div>
+</header>
+
+<section class="sec" id="sec-overview">
+  <h2>ภาพรวม: macOS ในองค์กร Microsoft ทำได้จริง</h2>
+  <p class="sub">Mac ไม่ได้ "แยกตัว" จาก Microsoft แล้ว — M365 apps มีบน macOS เต็มรูปแบบ และ Intune/Entra ID จัดการ Mac ได้เท่าเทียม Windows</p>
+  <div class="card-grid g4">
+    <div class="wcard"><div class="num">1</div><h3>Identity แกนเดียว</h3><p>Mac เข้า Microsoft Entra ID ได้ (Entra Join / Platform SSO) ใช้บัญชี, Conditional Access, MFA เดียวกับ Windows</p></div>
+    <div class="wcard"><div class="num">2</div><h3>MDM ฝังใน macOS</h3><p>Apple Business Manager (ฟรี) + Automated Device Enrollment → ผูกเครื่องเข้า MDM ตั้งแต่เปิดกล่อง</p></div>
+    <div class="wcard"><div class="num">3</div><h3>Apps ครบชุด</h3><p>Word / Excel / Outlook / Teams / OneNote เวอร์ชัน Mac ใช้ license ชุดเดียวกับ Windows (Microsoft 365 Standard ขึ้นไป)</p></div>
+    <div class="wcard"><div class="num">4</div><h3>ต้นทุนเพิ่มต่ำ</h3><p>ถ้าองค์กรมี Microsoft 365 Business Premium / E3 อยู่แล้ว → license และ Intune เพิ่ม ฿0 (จ่ายเฉพาะเครื่อง)</p></div>
+  </div>
+  <div class="note" style="margin-top:26px">💡 ข้อมูลราคาทั้งหมดในเอกสารดึงจากหน้าเว็บทางการ (apple.com/th, microsoft.com, jamf.com) เมื่อ 23 พฤศจิกายน 2026 — ราคา Microsoft เป็นสกุล USD รายปี (annual commitment) และอาจเปลี่ยนตามโปรโมชัน/ภูมิภาค</div>
+</section>
+
+<section class="sec" id="sec-requirements">
+  <h2>สิ่งที่ต้องมี (Requirements)</h2>
+  <p class="sub">6 หมวดหลักที่ต้องเตรียมก่อนแจก Mac จริง — เรียงตามลำดับความจำเป็น</p>
+  <div class="card-grid g3">
+    <div class="wcard"><div class="num">1</div><h3>Identity &amp; Access</h3><ul><li>Microsoft Entra ID (Azure AD) เป็น IdP หลัก</li><li>Platform SSO / passwordless (Touch ID)</li><li>Conditional Access: เฉพาะเครื่องที่ผ่าน compliance</li></ul></div>
+    <div class="wcard"><div class="num">2</div><h3>Device Management</h3><ul><li>Apple Business Manager (ฟรี) + ADE</li><li>MDM: Microsoft Intune (รวม license) หรือ Jamf Pro</li><li>FileVault escrow (กุญแจเข้ารหัสเก็บที่ MDM)</li></ul></div>
+    <div class="wcard"><div class="num">3</div><h3>Licensing</h3><ul><li>M365 Business Premium / E3 ขึ้นไป (รวม Intune)</li><li>Microsoft 365 apps for Mac (Standard ขึ้นไป)</li><li>Defender for Endpoint บน macOS</li></ul></div>
+    <div class="wcard"><div class="num">4</div><h3>Apps &amp; Compatibility</h3><ul><li>สำรวจ LOB app / internal web app ที่ผูก IE/ActiveX</li><li>ทางเลือกสำหรับ app ที่มีเฉพาะ Windows: VM (UTM/Parallels)</li><li>Adobe, Teams, Office, browser — ใช้ได้ native</li></ul></div>
+    <div class="wcard"><div class="num">5</div><h3>Network, Print, File</h3><ul><li>Wi-Fi/VPN ผ่าน profile ที่ push โดย MDM</li><li>ปริ้นเตอร์: AirPrint หรือ Universal Print (แทน print server เดิม)</li><li>ไฟล์: SharePoint/OneDrive แทน SMB share เดิม</li></ul></div>
+    <div class="wcard"><div class="num">6</div><h3>Support &amp; Skills</h3><ul><li>ทีม helpdesk ต้องรู้ macOS basics + MDM console</li><li>Stock spare / AppleCare for Business</li><li>นโยบาย: ใครได้ Mac (role-based) + กฎ BYO</li></ul></div>
+  </div>
+</section>
+
+<section class="sec" id="sec-architecture">
+  <h2>สถาปัตยกรรมอ้างอิง</h2>
+  <p class="sub">Flow หลัก: ซื้อเครื่อง → ผูก ABM → MDM จัดการ → Entra ID ยืนยันตัวตน → ใช้ M365 + เก็บข้อมูลบนคลาวด์ (on-prem เดิมเชื่อมแบบ hybrid หรือย้ายขึ้น cloud)</p>
+  <div class="diagram-wrap" id="archHost">
+    <svg viewBox="0 0 1560 640" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans Thai',Inter,sans-serif">
+      <defs>
+        <marker id="arrK" markerWidth="11" markerHeight="11" refX="7" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 z" fill="#0f172a"/>
+        </marker>
+        <marker id="arrB" markerWidth="11" markerHeight="11" refX="7" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 z" fill="#2563eb"/>
+        </marker>
+      </defs>
+
+      <!-- layer 1: devices -->
+      <rect x="430" y="14" width="700" height="78" rx="12" fill="#0f172a"/>
+      <svg x="456" y="34" width="30" height="30" viewBox="0 0 24 24"><path fill="#ffffff" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
+      <text x="502" y="47" fill="#ffffff" font-size="24" font-weight="700">ผู้ใช้และอุปกรณ์ · MacBook Air / MacBook Pro</text>
+      <text x="502" y="74" fill="#94a3b8" font-size="17">macOS · FileVault (เปิดอัตโนมัติ) · XProtect + Gatekeeper</text>
+      <line x1="780" y1="92" x2="780" y2="140" stroke="#0f172a" stroke-width="2.5" marker-end="url(#arrK)"/>
+      <text x="795" y="122" fill="#64748b" font-size="15">ซื้อผ่านตัวแทน / Apple Business แล้วลงทะเบียน</text>
+
+      <!-- layer 2: ABM + MDM -->
+      <rect x="60" y="144" width="640" height="86" rx="12" fill="#eef4ff" stroke="#2563eb" stroke-width="2"/>
+      <rect x="86" y="166" width="42" height="42" rx="9" fill="#2563eb"/>
+      <path d="M107 176 l14 8 v10 c0 8 -6 14 -14 17 c-8 -3 -14 -9 -14 -17 v-10 z" fill="#ffffff"/>
+      <text x="146" y="186" fill="#0f172a" font-size="23" font-weight="700">Apple Business Manager (ฟรี)</text>
+      <text x="146" y="213" fill="#475569" font-size="16.5">Automated Device Enrollment (ADE/DEP) · ผูก MDM อัตโนมัติตั้งแต่เปิดกล่อง</text>
+
+      <line x1="706" y1="187" x2="760" y2="187" stroke="#0f172a" stroke-width="2.5" marker-end="url(#arrK)"/>
+
+      <rect x="770" y="144" width="730" height="86" rx="12" fill="#eef4ff" stroke="#2563eb" stroke-width="2"/>
+      <rect x="796" y="166" width="42" height="42" rx="9" fill="#0f172a"/>
+      <rect x="806" y="176" width="22" height="22" rx="4" fill="#f35325"/>
+      <rect x="819" y="176" width="9" height="9" fill="#81bc06"/>
+      <rect x="819" y="189" width="9" height="9" fill="#05a6f0"/>
+      <rect x="806" y="189" width="9" height="9" fill="#ffba08"/>
+      <text x="856" y="186" fill="#0f172a" font-size="23" font-weight="700">MDM: Microsoft Intune (รวมใน license) หรือ Jamf Pro</text>
+      <text x="856" y="213" fill="#475569" font-size="16.5">Wi-Fi/VPN profile · app catalog · compliance · FileVault escrow · wipe/lock ระยะไกล</text>
+
+      <line x1="1135" y1="230" x2="1135" y2="278" stroke="#0f172a" stroke-width="2.5" marker-end="url(#arrK)"/>
+
+      <!-- layer 3: Entra ID -->
+      <rect x="430" y="282" width="700" height="92" rx="12" fill="#0f172a"/>
+      <rect x="458" y="310" width="36" height="36" rx="7" fill="#ffffff"/>
+      <rect x="462" y="314" width="14" height="14" fill="#f35325"/>
+      <rect x="478" y="314" width="12" height="14" fill="#81bc06"/>
+      <rect x="462" y="330" width="14" height="12" fill="#05a6f0"/>
+      <rect x="478" y="330" width="12" height="12" fill="#ffba08"/>
+      <text x="512" y="322" fill="#ffffff" font-size="24" font-weight="700">Microsoft Entra ID — บัญชีเดียวทั้งองค์กร</text>
+      <text x="512" y="350" fill="#94a3b8" font-size="17">Entra Join (cloud) / Hybrid กับ AD เดิม · Platform SSO + Touch ID · MFA · Conditional Access</text>
+
+      <line x1="780" y1="374" x2="780" y2="422" stroke="#0f172a" stroke-width="2.5" marker-end="url(#arrK)"/>
+
+      <!-- layer 4: apps / data / security -->
+      <rect x="250" y="426" width="420" height="118" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+      <rect x="250" y="426" width="420" height="8" rx="4" fill="#2563eb"/>
+      <text x="276" y="474" fill="#0f172a" font-size="22" font-weight="700">แอป Microsoft 365 บน Mac</text>
+      <text x="276" y="504" fill="#475569" font-size="16.5">Word · Excel · Outlook · Teams</text>
+      <text x="276" y="528" fill="#475569" font-size="16.5">ลิขสิทธิ์ชุดเดียวกับ Windows</text>
+
+      <rect x="700" y="426" width="420" height="118" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+      <rect x="700" y="426" width="420" height="8" rx="4" fill="#0f172a"/>
+      <text x="726" y="474" fill="#0f172a" font-size="22" font-weight="700">ข้อมูลและการทำงานร่วมกัน</text>
+      <text x="726" y="504" fill="#475569" font-size="16.5">OneDrive · SharePoint · Teams</text>
+      <text x="726" y="528" fill="#475569" font-size="16.5">(แทน SMB file share เดิม — sync แทน mount)</text>
+
+      <rect x="1150" y="426" width="350" height="118" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+      <rect x="1150" y="426" width="350" height="8" rx="4" fill="#16a34a"/>
+      <text x="1176" y="474" fill="#0f172a" font-size="22" font-weight="700">ความปลอดภัย</text>
+      <text x="1176" y="504" fill="#475569" font-size="16.5">Defender for Endpoint (Mac)</text>
+      <text x="1176" y="528" fill="#475569" font-size="16.5">Purview DLP · FileVault escrow</text>
+
+      <!-- on-prem side -->
+      <rect x="30" y="426" width="190" height="118" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" stroke-dasharray="7 6"/>
+      <text x="52" y="466" fill="#475569" font-size="19" font-weight="700">ฝั่ง on-prem เดิม</text>
+      <text x="52" y="494" fill="#64748b" font-size="15.5">AD · File/Print server</text>
+      <text x="52" y="518" fill="#64748b" font-size="15.5">→ hybrid หรือย้ายขึ้น cloud</text>
+      <path d="M120 424 C 120 360, 300 350, 424 344" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#arrB)"/>
+      <path d="M222 470 L 262 470" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#arrB)"/>
+
+      <!-- footer note -->
+      <text x="30" y="600" fill="#64748b" font-size="16">เส้นประ = ทางเชื่อมเดิมที่ทำได้ทั้งแบบ hybrid (Entra hybrid join / Kerberos SSO) และแบบย้ายขึ้นคลาวด์ทั้งหมด</text>
+      <text x="30" y="628" fill="#64748b" font-size="16">ทุก policy (Wi-Fi, VPN, app, encryption, compliance) สั่งจาก MDM เดียว — ไม่ใช้ GPO แบบ Windows</text>
+    </svg>
+  </div>
+  <div class="sec-foot"><span>macOS ในองค์กร Microsoft · สถาปัตยกรรมอ้างอิง</span><span>กด ▶ Presentation Mode เพื่อดูสไลด์ทั้งหมด</span></div>
+</section>
+
+<section class="sec" id="sec-cost">
+  <h2>ค่าใช้จ่ายเบื้องต้น (ตัวอย่าง 25 เครื่อง)</h2>
+  <p class="sub">สมมติฐาน: 25 ผู้ใช้ · MacBook Air 13" · อัตรา 35.5 บาท/USD · ราคา Microsoft เป็นรายปี ณ 23/11/2026</p>
+  <div class="tbl-wrap">
+    <table class="tbl-s">
+      <tr><th style="width:420px">รายการ</th><th style="width:200px" class="ctr">ครั้งเดียว</th><th style="width:200px" class="ctr">ต่อปี</th><th>หมายเหตุ</th></tr>
+      <tr><td><b>MacBook Air 13" M5 × 25</b></td><td class="num-c">฿1,122,500</td><td class="num-c">—</td><td>฿44,900/เครื่อง (apple.com/th)</td></tr>
+      <tr><td><b>AppleCare for Business</b> (ประมาณ 10%)</td><td class="num-c">฿112,250</td><td class="num-c">—</td><td>ราคาจริงตามใบเสนอราคาตัวแทน</td></tr>
+      <tr><td><b>M365 Business Premium 25 users</b></td><td class="num-c">—</td><td class="num-c">฿340,800</td><td>รวม Intune + Entra ID P1 + Defender — <b>ซื้อเพิ่มเฉพาะเมื่อยังไม่มี</b></td></tr>
+      <tr><td><b>MDM: Microsoft Intune</b></td><td class="num-c">—</td><td class="num-c">฿0</td><td>รวมอยู่ใน Premium / E3 / E5 แล้ว</td></tr>
+      <tr><td><b>ทางเลือก: Jamf Pro</b> ($4/device/mo)</td><td class="num-c">—</td><td class="num-c">฿42,600</td><td>เสริมเมื่อต้องการ Apple-native tooling ลึกๆ</td></tr>
+      <tr><td><b>ตั้งค่า/โอนย้าย</b> (ทีม IT ภายใน)</td><td class="num-c" colspan="2" style="text-align:center">ประมาณ 2–4 สัปดาห์ · IT 2 คน + pilot 5–10 เครื่อง</td><td>ABM, Intune policy, Conditional Access, pilot</td></tr>
+    </table>
+  </div>
+  <div class="note" style="margin-top:24px">💡 สรุปต้นทุนเพิ่มจริง: ถ้าองค์กรมี Microsoft 365 Business Premium (หรือ E3/E5) อยู่แล้ว → <b>license เพิ่ม ฿0 · MDM เพิ่ม ฿0</b> ต้นทุนหลักคือ "เครื่อง + AppleCare + เวลาตั้งค่า" เท่านั้น · ถ้าต้อง upgrade จาก Standard → Premium = ฿90,525/ปี (25 users)</div>
+  <div class="sec-foot"><span>macOS ในองค์กร Microsoft · ค่าใช้จ่าย</span><span>ราคา ณ 23/11/2026 · อาจเปลี่ยนตามโปรโมชัน</span></div>
+</section>
+
+<section class="sec" id="sec-roadmap">
+  <h2>แผนนำร่อง &amp; ความเสี่ยง</h2>
+  <p class="sub">เริ่มเล็ก วัดผล แล้วขยาย — 4 ระยะใน ~3 เดือน</p>
+  <div class="card-grid g4">
+    <div class="wcard"><div class="num">P0</div><h3>สำรวจ (2 สัปดาห์)</h3><p>ทำ inventory แอป/ระบบ, ระบุ Windows-only app, ตรวจ license ที่มีอยู่, เลือก MDM</p></div>
+    <div class="wcard"><div class="num">P1</div><h3>Pilot (4 สัปดาห์)</h3><p>5–10 เครื่อง → ตั้ง ABM + Intune + Entra Join + Conditional Access, เก็บ feedback</p></div>
+    <div class="wcard"><div class="num">P2</div><h3>มาตรฐาน (4 สัปดาห์)</h3><p>เขียน standard build, นโยบายเบิก/คืน, helpdesk runbook, ย้ายไฟล์ขึ้น SharePoint</p></div>
+    <div class="wcard"><div class="num">P3</div><h3>ขยายผล (ต่อเนื่อง)</h3><p>แจกตาม role, ประเมิน TCO จริง ราย 6 เดือน, ทบทวน Windows-only apps ซ้ำ</p></div>
+  </div>
+  <div class="card-grid g2" style="margin-top:26px">
+    <div class="wcard"><h3>⚠️ ความเสี่ยงหลัก</h3><ul><li><b>แอปที่มีเฉพาะ Windows</b> (internal tool, ActiveX, banking plugin) → ต้องทดสอบ/หาทางแทน</li><li><b>ปริ้นเตอร์และ file share เดิม</b> → ต้องย้ายเป็น AirPrint/Universal Print และ SharePoint</li><li><b>ทีม support</b> ต้องเรียนรู้ MDM + macOS เพิ่ม</li></ul></div>
+    <div class="wcard"><h3>✅ สิ่งที่ไม่ต้องกังวล</h3><ul><li>บัญชี/MFA/Conditional Access — ใช้ Entra ID ชุดเดิม</li><li>Office/Teams/Outlook — มีบน Mac ครบ</li><li>Antivirus — Defender for Endpoint รองรับ macOS</li><li>MDM — ฝังใน macOS ไม่ต้องติดตั้ง agent แปลกปลอม</li></ul></div>
+  </div>
+  <div class="sec-foot">
+    <span>แหล่งอ้างอิง: apple.com/th · support.apple.com/guide/business · microsoft.com/microsoft-365 · learn.microsoft.com/intune · jamf.com/pricing · iru.com/pricing</span>
+    <span>ข้อมูล ณ 23/11/2026</span>
+  </div>
+</section>
+
+<!-- ======================= PRESENTATION ======================= -->
+<div id="presOverlay" onclick="if(event.target===this)exitPresentation()">
+  <div id="slideContainer">
+
+    <!-- ========== 1 TITLE ========== -->
+    <div class="pres-slide slide-title">
+      <div class="s-inner">
+        <div class="kicker">IT Architecture Proposal</div>
+        <h1>เอา macOS เข้าสู่องค์กร<br>ที่ Microsoft เป็นซอฟต์แวร์หลัก</h1>
+        <div class="lead">สิ่งที่ต้องมี · สถาปัตยกรรมอ้างอิง · ค่าใช้จ่ายเบื้องต้น — เริ่มจาก Entra ID + MDM เป็นแกน</div>
+        <div class="tmeta">
+          <span class="chip">Apple Business Manager (ฟรี)</span>
+          <span class="chip">Intune รวมอยู่ใน license</span>
+          <span class="chip">MacBook Air เริ่ม ฿44,900</span>
+          <span class="chip">23 พฤศจิกายน 2026</span>
+        </div>
+      </div>
+      <div class="conf"><span>macOS × Microsoft 365</span><span>ราคา ณ 23/11/2026 · USD รายปี</span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 2 EXEC SUMMARY ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">ภาพรวม</div></div>
+      <div class="s-inner">
+        <div class="s-label">Executive Summary</div>
+        <h2 class="s-title">ทำได้จริง — และต้นทุนเพิ่มต่ำกว่าที่คิด</h2>
+        <div class="s-sub">Mac ไม่ได้หลุดจาก ecosystem Microsoft: บัญชีเดียว, license ชุดเดียว, console เดียว</div>
+        <div class="s-body">
+          <div class="cards3">
+            <div class="pcard"><span class="ic">🔐</span><div class="big">1 IdP</div><h3>Entra ID แกนเดียว</h3><p>Mac เข้า Entra Join + Platform SSO (Touch ID) ใช้ MFA/Conditional Access เดียวกับ Windows</p></div>
+            <div class="pcard"><span class="ic">📱</span><div class="big">฿0</div><h3>MDM เพิ่ม</h3><p>Intune รวมอยู่ใน Business Premium / E3 / E5 แล้ว — ไม่มีค่า MDM เพิ่ม</p></div>
+            <div class="pcard"><span class="ic">📦</span><div class="big">฿44,900</div><h3>ราคาเครื่องเริ่มต้น</h3><p>MacBook Air 13" M5 — จ่ายเฉพาะเครื่อง + AppleCare เมื่อมี license อยู่แล้ว</p></div>
+          </div>
+          <div class="rulebox"><span class="lk">🎯</span><span>ข้อเสนอ: เริ่มจาก pilot 5–10 เครื่อง · ใช้ ABM + Intune + Entra Join · ย้ายไฟล์ขึ้น SharePoint · วัดผล 4 สัปดาห์ก่อนขยาย</span></div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · ภาพรวม</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 3 REQUIREMENTS ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">ข้อกำหนด</div></div>
+      <div class="s-inner">
+        <div class="s-label">Requirements</div>
+        <h2 class="s-title">สิ่งที่ต้องมี 6 หมวด</h2>
+        <div class="s-sub">เรียงตามลำดับความจำเป็น — 3 ข้อแรกคือข้อบังคับที่พลาดไม่ได้</div>
+        <div class="s-body">
+          <div class="cards3">
+            <div class="pcard"><h3>1 · Identity &amp; Access</h3><p>Entra ID เป็น IdP หลัก · Platform SSO / passwordless · Conditional Access บังคับเครื่องที่ผ่าน compliance เท่านั้น</p></div>
+            <div class="pcard"><h3>2 · Device Management</h3><p>Apple Business Manager (ฟรี) + Automated Device Enrollment · MDM = Intune หรือ Jamf · FileVault escrow</p></div>
+            <div class="pcard"><h3>3 · Licensing</h3><p>Microsoft 365 Business Premium / E3 ขึ้นไป (รวม Intune) · M365 apps for Mac · Defender for Endpoint</p></div>
+            <div class="pcard"><h3>4 · Apps &amp; Compatibility</h3><p>สำรวจ LOB app ที่ผูก Windows/ActiveX · ทางเลือก VM (UTM/Parallels) สำหรับแอปที่มีเฉพาะ Windows</p></div>
+            <div class="pcard"><h3>5 · Network · Print · File</h3><p>Wi-Fi/VPN ผ่าน MDM profile · AirPrint / Universal Print · SharePoint/OneDrive แทน SMB share</p></div>
+            <div class="pcard"><h3>6 · Support &amp; Skills</h3><p>Helpdesk รู้ macOS + MDM console · AppleCare for Business · นโยบายเบิก Mac ตาม role</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · ข้อกำหนด</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 4 ARCHITECTURE ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">สถาปัตยกรรม</div></div>
+      <div class="s-inner">
+        <div class="s-label">Reference Architecture</div>
+        <h2 class="s-title">สถาปัตยกรรมอ้างอิง</h2>
+        <div class="s-sub">ซื้อเครื่อง → ผูก ABM → MDM จัดการ → Entra ID ยืนยันตัวตน → ใช้ M365 + เก็บข้อมูลบนคลาวด์</div>
+        <div class="slide-diag" id="archSlideHost"></div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · สถาปัตยกรรม</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 5 IDENTITY ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Identity</div></div>
+      <div class="s-inner">
+        <div class="s-label">Identity &amp; Access</div>
+        <h2 class="s-title">Mac เข้า Microsoft Entra ID ได้ 2 ทาง</h2>
+        <div class="s-sub">เลือกให้ตรงกับสภาพ AD เดิม — ทั้งสองทางใช้ MFA และ Conditional Access เดียวกัน</div>
+        <div class="s-body">
+          <div class="gcols">
+            <div class="pcard"><span class="pill green">แนะนำ</span><h3>A · Entra Join (cloud-native)</h3><p>ผู้ใช้และเครื่องอยู่บน Entra ID ล้วน ไม่พึ่ง AD บน-prem<br><br>• เหมาะกับกลุ่มใหม่ / remote / BYO<br>• Platform SSO: เข้าสู่ระบบด้วย Touch ID ใช้บัญชี Entra<br>• ตั้งค่าง่าย ไม่มี dependency กับระบบเดิม</p></div>
+            <div class="pcard"><span class="pill warn">ทางเลือก</span><h3>B · Hybrid กับ AD เดิม</h3><p>เครื่อง join Entra แต่ยังยืนยันกับ Active Directory บน-prem<br><br>• เหมาะกับระบบที่ยังใช้ GPO/AD-auth อยู่<br>• ใช้ Entra hybrid join + Kerberos SSO extension<br>• ต้องดูแล sync (Entra Connect) ต่อ</p></div>
+          </div>
+          <div class="rulebox"><span class="lk">🛡️</span><span>Conditional Access = ประตูเดียว: "เครื่องต้องผ่าน compliance จาก MDM + MFA ผ่าน" จึงจะเข้า SharePoint/Teams/Email ได้ — ใช้ได้ทั้ง Windows และ Mac</span></div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · Identity</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 6 LIFECYCLE ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Device Lifecycle</div></div>
+      <div class="s-inner">
+        <div class="s-label">Device Lifecycle</div>
+        <h2 class="s-title">วงจรชีวิตอุปกรณ์ — สั่งอัตโนมัติด้วย MDM</h2>
+        <div class="s-sub">ทุกขั้นตอนตั้งแต่แกะกล่องจนคืนเครื่อง ถูกกำหนดโดย policy ที่ push จาก console เดียว</div>
+        <div class="s-body">
+          <div class="steps">
+            <div class="step"><div class="n">1</div><div class="tx"><b>สั่งซื้อ + ผูก ABM</b> — ซื้อผ่านตัวแทนที่ลงทะเบียนกับ Apple Business Manager เครื่องเข้าองค์กรอัตโนมัติ (ไม่ต้องพิมพ์ serial)</div></div>
+            <div class="step"><div class="n">2</div><div class="tx"><b>เปิดเครื่อง → ADE</b> — Setup Assistant แสดงหน้าตามที่องค์กรกำหนด บังคับ Entra Join + ติดตั้ง Wi-Fi/VPN profile ก่อนเข้าใช้งาน</div></div>
+            <div class="step"><div class="n">3</div><div class="tx"><b>ลง MDM + baseline</b> — FileVault เปิดอัตโนมัติ + escrow กุญแจ, Defender ติดตั้ง, app catalog (Office/Teams/Line-of-business)</div></div>
+            <div class="step"><div class="n">4</div><div class="tx"><b>ใช้งาน + compliance</b> — Conditional Access เช็คสถานะรายวัน: เครื่องไม่ผ่าน policy = เข้าข้อมูลองค์กรไม่ได้</div></div>
+            <div class="step"><div class="n">5</div><div class="tx"><b>ซ่อม / โอน / คืน</b> — AppleCare for Business ซ่อมผ่านตัวแทน · โอนเครื่องเปลี่ยนผู้ใช้ผ่าน ABM · คืนเครื่อง = wipe ระยะไกล</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · Device Lifecycle</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 7 LICENSING ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Licensing</div></div>
+      <div class="s-inner">
+        <div class="s-label">Licensing</div>
+        <h2 class="s-title">license ที่เกี่ยวข้อง (ราคาทางการ)</h2>
+        <div class="s-sub">USD / user / month · จ่ายรายปี · microsoft.com ณ 23/11/2026 — เลือกชุดเดียวกับกลุ่มผู้ใช้ Windows</div>
+        <div class="s-body">
+          <div class="tbl-wrap">
+            <table class="tbl-s">
+              <tr><th style="width:400px">แผน</th><th style="width:160px" class="ctr">ราคา</th><th>ใช้กับ Mac ได้ / หมายเหตุ</th></tr>
+              <tr><td><b>Microsoft 365 Business Basic</b></td><td class="ctr">$7.00</td><td>เว็บ+มือถือเท่านั้น · <span class="mut">ไม่รวม Intune</span></td></tr>
+              <tr><td><b>Microsoft 365 Business Standard</b> (with Copilot)</td><td class="ctr">$23.50</td><td>Office desktop บน Mac ครบ · <span class="mut">ไม่รวม Intune</span></td></tr>
+              <tr><td><b>Microsoft 365 Business Premium</b> (with Copilot)</td><td class="ctr">$32.00</td><td><span class="ok">✓ รวม Intune + Entra ID P1 + Defender + Purview</span> · สูงสุด 300 users</td></tr>
+              <tr><td><b>Microsoft 365 E3 / E5 / E7</b></td><td class="ctr">$39 / $60 / $99</td><td>ระดับองค์กร · รวม Intune + Entra ID P1/P2</td></tr>
+              <tr><td><b>Microsoft Defender for Business</b> (standalone)</td><td class="ctr">$3.00</td><td>Endpoint protection สำหรับ Mac/Windows (รวมใน Premium แล้ว)</td></tr>
+              <tr><td><b>Microsoft Intune Plan 1</b></td><td class="ctr">รวมในแผนข้างบน</td><td>base service ของ MDM — ขายแยกเฉพาะ SKU แยก</td></tr>
+            </table>
+          </div>
+          <div class="small-note">ราคา US รายปี ณ 23/11/2026 · ราคาไทย/สกุลอื่นและส่วนลดตามจำนวนซื้อ ต้องขอใบเสนอราคาตัวแทนจำหน่าย · ราคา "with Copilot" เป็นแผนที่ Microsoft ขายปัจจุบัน</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · Licensing</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 8 MDM OPTIONS ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">MDM Options</div></div>
+      <div class="s-inner">
+        <div class="s-label">MDM Options</div>
+        <h2 class="s-title">ทางเลือก MDM เปรียบเทียบ</h2>
+        <div class="s-sub">เริ่มจาก Intune ที่จ่ายอยู่แล้ว — ย้ายไป Jamf/Iru เมื่อต้องการ capability ระดับ Apple-native</div>
+        <div class="s-body">
+          <div class="tbl-wrap">
+            <table class="tbl-s">
+              <tr><th style="width:300px">ตัวเลือก</th><th style="width:250px" class="ctr">ราคา</th><th style="width:330px">จุดเด่น</th><th>ข้อจำกัด</th></tr>
+              <tr><td><b>Microsoft Intune</b> <span class="pill green">แนะนำเริ่มต้น</span></td><td class="ctr">รวมอยู่ใน Premium / E3-E5<br><span class="mut">เพิ่ม ฿0</span></td><td>console เดียวกับ Windows · Conditional Access ผูกตรง · Defender/Purview ในชุดเดียว</td><td>deep Apple-specific feature (bootstrap, patch policy ละเอียด) น้อยกว่า Jamf</td></tr>
+              <tr><td><b>Jamf Pro</b></td><td class="ctr">เริ่ม <b>$4</b>/device/mo<br>bundle macOS $12.50 (Pro+Connect+Protect)</td><td>มาตรฐานฝั่ง Apple enterprise · script/extension attribute ยืดหยุ่น · ใช้คู่กับ Entra ได้</td><td>ค่าใช้จ่ายเพิ่มต่อเครื่อง · console คนละชุดกับ Microsoft</td></tr>
+              <tr><td><b>Iru</b> (เดิมชื่อ Kandji)</td><td class="ctr">ใบเสนอราคา<br><span class="mut">ไม่เปิดราคาสาธารณะ</span></td><td>โมดูลแยกเลือก (endpoint mgmt, EDR, identity, compliance) · ใช้ง่าย</td><td>ต้องขอ quote · ผูกกับ vendor ใหม่</td></tr>
+              <tr><td><b>Mosyle</b></td><td class="ctr">ใบเสนอราคา<br><span class="mut">ไม่พบราคาสาธารณะ</span></td><td>ราคาแข่งขันได้สำหรับ SMB · เน้น Apple โดยเฉพาะ</td><td>ไม่ผูกกับ ecosystem Microsoft · ต้องขอ quote</td></tr>
+            </table>
+          </div>
+          <div class="small-note">ราคา Jamf อ้างอิงจาก schema.org บน jamf.com/pricing (USD/device/month, 23/11/2026) · ตัวเลือกที่ 3–4 ไม่เปิดราคาบนเว็บ ณ วันที่ตรวจสอบ</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · MDM Options</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 9 HARDWARE ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Hardware</div></div>
+      <div class="s-inner">
+        <div class="s-label">Hardware</div>
+        <h2 class="s-title">ราคาเครื่อง (apple.com/th · 23/11/2026)</h2>
+        <div class="s-sub">เลือกรุ่นตาม role — ไม่จำเป็นต้องใช้ Pro ทุกตำแหน่ง</div>
+        <div class="s-body">
+          <div class="cards3">
+            <div class="pcard"><span class="ic"></span><h3>MacBook Air 13"</h3><div class="big">฿44,900</div><p>Apple M5 · 10-core CPU<br>สำหรับผู้ใช้ทั่วไป (Office/Teams/web) — คุ้มที่สุดสำหรับ fleet</p></div>
+            <div class="pcard"><h3>MacBook Air 15"</h3><div class="big">฿54,900</div><p>Apple M5 · จอใหญ่ขึ้น<br>สำหรับงานวิเคราะห์/เอกสารหนักๆ ที่ไม่ต้องการ GPU</p></div>
+            <div class="pcard"><h3>MacBook Pro 14"</h3><div class="big">฿104,900+</div><p>Apple M5 / M5 Pro<br>สำหรับ dev, design, งานหนัก — รุ่นสูงสุดประมาณ ฿174,900</p></div>
+          </div>
+          <div class="rulebox"><span class="lk">💡</span><span>AppleCare for Business ซื้อเพิ่มต่อเครื่อง (ราคาตามตัวแทน) · เครื่องที่ซื้อผ่านช่องทางองค์กรจะขึ้นใน ABM ให้เอง — อย่าซื้อปลีกแล้วค่อยลงทะเบียนเอง</span></div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · Hardware</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 10 COST ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">ค่าใช้จ่าย</div></div>
+      <div class="s-inner">
+        <div class="s-label">Cost Model</div>
+        <h2 class="s-title">ค่าใช้จ่ายเบื้องต้น · ตัวอย่าง 25 เครื่อง</h2>
+        <div class="s-sub">สมมติฐาน: MacBook Air 13" · 25 ผู้ใช้ · อัตรา 35.5 บาท/USD · Microsoft ราคา USD รายปี</div>
+        <div class="s-body">
+          <div class="tbl-wrap">
+            <table class="tbl-s">
+              <tr><th style="width:520px">รายการ</th><th style="width:230px" class="ctr">ครั้งเดียว</th><th style="width:210px" class="ctr">ต่อปี</th><th>หมายเหตุ</th></tr>
+              <tr><td><b>MacBook Air 13" M5 × 25</b></td><td class="num-c">฿1,122,500</td><td class="num-c">—</td><td>฿44,900/เครื่อง</td></tr>
+              <tr><td><b>AppleCare for Business</b> (≈10%)</td><td class="num-c">฿112,250</td><td class="num-c">—</td><td>ประมาณการ · จริงตาม quote</td></tr>
+              <tr><td><b>M365 Business Premium</b> 25 users</td><td class="num-c">—</td><td class="num-c">฿340,800</td><td>ซื้อ<b>เพิ่ม</b>เฉพาะเมื่อยังไม่มี</td></tr>
+              <tr><td><b>MDM: Intune</b></td><td class="num-c">—</td><td class="num-c">฿0</td><td>รวมอยู่ใน Premium/E3/E5</td></tr>
+              <tr><td><i>ทางเลือก:</i> Jamf Pro</td><td class="num-c">—</td><td class="num-c">฿42,600</td><td>$4 × 25 × 12 เดือน</td></tr>
+            </table>
+          </div>
+          <div class="rulebox"><span class="lk">📊</span><span>ถ้าองค์กรมี Business Premium / E3 อยู่แล้ว → ต้นทุนเพิ่มจริง ≈ <b>฿1.23 ล้าน (ครั้งเดียว)</b> · license เพิ่ม ฿0 · MDM เพิ่ม ฿0 — ยังไม่รวมค่าตั้งค่าภายใน ~2–4 สัปดาห์</span></div>
+          <div class="small-note"> upgrade Standard → Premium (25 users) = ฿90,525/ปี · ตัวเลขเป็นการประมาณ ใช้ตัดสินใจเบื้องต้น ควรขอใบเสนอราคาจริงก่อนซื้อ</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · ค่าใช้จ่าย</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 11 RISKS ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">ความเสี่ยง</div></div>
+      <div class="s-inner">
+        <div class="s-label">Risks &amp; Mitigations</div>
+        <h2 class="s-title">ความเสี่ยงที่ต้องรู้ก่อนเริ่ม</h2>
+        <div class="s-sub">ทุกข้อมีทางแก้ — ส่วนใหญ่แก้ด้วย "ทดสอบก่อนแจกจริง"</div>
+        <div class="s-body">
+          <div class="gcols">
+            <div class="col">
+              <div class="pit"><span class="ic">⚠️</span><div class="tx"><b>แอปที่มีเฉพาะ Windows</b> (internal tool, ActiveX, plugin ธนาคาร) → ทำ POC ทุกตัวในช่วง pilot · ทางเลือก: VM (UTM/Parallels) หรือ web version</div></div>
+              <div class="pit"><span class="ic">🖨️</span><div class="tx"><b>ปริ้นเตอร์/file share เดิม</b> → ทดสอบ AirPrint ก่อน · ย้ายไฟล์ขึ้น SharePoint/OneDrive (sync แทน mount drive)</div></div>
+              <div class="pit"><span class="ic">📋</span><div class="tx"><b>GPO ใช้กับ Mac ไม่ได้</b> → ทุก policy ต้องย้ายขึ้น MDM/Intune ถ้ายังพึ่ง GPO หนักๆ ต้องวางแผนย้ายก่อน</div></div>
+            </div>
+            <div class="col">
+              <div class="pit"><span class="ic">🧑‍💻</span><div class="tx"><b>ทีม support ยังไม่ชิน</b> → เขียน runbook + training ให้ IT ก่อน pilot · Helpdesk ต้องดู MDM console ได้</div></div>
+              <div class="pit"><span class="ic">💰</span><div class="tx"><b>ต้นทุนเครื่องสูงกว่า PC เฉลี่ย</b> → จำกัดสิทธิ์ตาม role · ใช้ Air สำหรับผู้ใช้ทั่วไป · เทียบ TCO รวม (AppleCare + อัตราเปลี่ยนเครื่อง)</div></div>
+              <div class="pit"><span class="ic">🔤</span><div class="tx"><b>ฟอนต์ไทย/เอกสารข้ามระบบ</b> → ใช้ฟอนต์มาตรฐานองค์กร (เช่น Noto Sans Thai) ทดสอบ print preview ทั้งสองฝั่ง</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · ความเสี่ยง</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 12 ROADMAP ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">แผนงาน</div></div>
+      <div class="s-inner">
+        <div class="s-label">Roadmap</div>
+        <h2 class="s-title">แผนนำร่อง 4 ระยะ · ~3 เดือน</h2>
+        <div class="s-sub">เริ่มเล็ก วัดผล แล้วขยาย — ไม่ต้องเปลี่ยนทั้งองค์กรในครั้งเดียว</div>
+        <div class="s-body">
+          <div class="cards3">
+            <div class="pcard"><span class="pill">P0 · 2 สัปดาห์</span><h3>สำรวจ &amp; ออกแบบ</h3><p>ทำ inventory แอป/ระบบ · ระบุ Windows-only app · ตรวจ license ที่มีอยู่ · เลือก MDM และเขียน standard build</p></div>
+            <div class="pcard"><span class="pill">P1 · 4 สัปดาห์</span><h3>Pilot 5–10 เครื่อง</h3><p>ตั้ง ABM + Intune + Entra Join + Conditional Access · ทดสอบแอป/ปริ้น/ไฟล์จริง · เก็บ feedback รายสัปดาห์</p></div>
+            <div class="pcard"><span class="pill">P2 · 4 สัปดาห์</span><h3>ทำเป็นมาตรฐาน</h3><p>นิยาม standard build ตาม role · นโยบายเบิก/คืน · helpdesk runbook · เริ่มย้ายไฟล์ขึ้น SharePoint</p></div>
+          </div>
+          <div class="cards3">
+            <div class="pcard"><span class="pill">P3 · ต่อเนื่อง</span><h3>ขยายผล &amp; ประเมิน</h3><p>แจกตาม role · ทบทวน Windows-only apps ทุก 6 เดือน · วัด TCO จริงเทียบกับแผน</p></div>
+            <div class="pcard"><h3>ผู้เกี่ยวข้อง</h3><p>IT Infrastructure · Security · ผู้ใช้ pilot (business unit) · ตัวแทนจำหน่าย Apple</p></div>
+            <div class="pcard"><h3>เกณฑ์ตัดสิน go/no-go</h3><p>แอปหลักผ่านครบ · helpdesk รันเองได้ · Conditional Access ทำงานจริง · ผู้ใช้พอใจ &gt; 80%</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · แผนงาน</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 13 CHECKLIST ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Checklist</div></div>
+      <div class="s-inner">
+        <div class="s-label">Next Actions</div>
+        <h2 class="s-title">เช็คลิสต์ก่อนเริ่มโครงการ</h2>
+        <div class="s-sub">ใช้หน้านี้เป็นเอกสารกำกับ — ครบเมื่อไรค่อยแจก Mac จริง</div>
+        <div class="s-body">
+          <div class="gcols">
+            <div class="checklist">
+              <div class="ck"><span class="box"></span>สมัคร Apple Business Manager + เพิ่มตัวแทนจำหน่าย</div>
+              <div class="ck"><span class="box"></span>ตรวจ license ปัจจุบันว่ามี Intune หรือยัง (Premium / E3)</div>
+              <div class="ck"><span class="box"></span>ทำ inventory แอปและระบบที่ผูก Windows</div>
+              <div class="ck"><span class="box"></span>เลือก MDM (เริ่มจาก Intune) และร่าง policy baseline</div>
+              <div class="ck"><span class="box"></span>ตั้ง Conditional Access: เครื่องต้อง compliance เท่านั้น</div>
+            </div>
+            <div class="checklist">
+              <div class="ck"><span class="box"></span>เปิด FileVault + escrow recovery key ที่ MDM</div>
+              <div class="ck"><span class="box"></span>ทดสอบปริ้นเตอร์/VPN/ไฟล์แชร์ ในสภาพจริง</div>
+              <div class="ck"><span class="box"></span>อบรม helpdesk + เขียน runbook (enroll, wipe, ซ่อม)</div>
+              <div class="ck"><span class="box"></span>จัด pilot 5–10 เครื่อง · วัดผล 4 สัปดาห์</div>
+              <div class="ck"><span class="box"></span>ขอใบเสนอราคาเครื่อง + AppleCare จากตัวแทน</div>
+            </div>
+          </div>
+          <div class="small-note">แหล่งอ้างอิง: apple.com/th · support.apple.com/guide/business (ABM/ADE) · microsoft.com/microsoft-365/business + /enterprise (ราคา) · learn.microsoft.com/intune/fundamentals/licensing · jamf.com/pricing · iru.com/pricing — ข้อมูล ณ 23/11/2026</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · Checklist</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+  </div>
+  <div class="pres-controls">
+    <button onclick="prevSlide()">◀ ก่อนหน้า</button>
+    <span class="counter" id="slideCounter">1 / 13</span>
+    <button onclick="nextSlide()">ถัดไป ▶</button>
+    <button onclick="toggleEditMode()">Edit</button>
+    <button onclick="exitPresentation()">✕ ปิด</button>
+  </div>
+</div>
+
+<div id="editBar">
+  <span class="badge">EDIT MODE</span>
+  <button onclick="addSlide()">＋ เพิ่มสไลด์</button>
+  <button onclick="saveLocal()">💾 บันทึก</button>
+  <button onclick="exportHtml()">⬇ Export HTML</button>
+  <button onclick="toggleEditMode()">✕ ออกจาก Edit</button>
+</div>
+
+<script>
+/* ============ state ============ */
+let totalSlides = document.querySelectorAll('.pres-slide').length;
+let current = 0;
+let editMode = false;
+const overlay = document.getElementById('presOverlay');
+const container = document.getElementById('slideContainer');
+
+/* ============ scaling ============ */
+function scaleSlides(){
+  const scale = Math.min(container.clientWidth / 1920, container.clientHeight / 1080);
+  const ox = (container.clientWidth - 1920 * scale) / 2;
+  const oy = (container.clientHeight - 1080 * scale) / 2;
+  document.querySelectorAll('.pres-slide').forEach(s => {
+    s.style.width = '1920px';
+    s.style.height = '1080px';
+    s.style.transformOrigin = 'top left';
+    s.style.transform = 'scale(' + scale + ')';
+    s.style.left = ox + 'px';
+    s.style.top = oy + 'px';
+  });
+}
+window.addEventListener('resize', scaleSlides);
+if (window.MutationObserver) {
+  new MutationObserver(scaleSlides).observe(container, {childList:true, subtree:true});
+}
+
+/* ============ navigation ============ */
+function showSlide(i){
+  const slides = document.querySelectorAll('.pres-slide');
+  if (i < 0) i = 0;
+  if (i >= slides.length) i = slides.length - 1;
+  current = i;
+  slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+  totalSlides = slides.length;
+  document.getElementById('slideCounter').textContent = (i + 1) + ' / ' + totalSlides;
+  scaleSlides();
+}
+function nextSlide(){ showSlide(current + 1); }
+function prevSlide(){ showSlide(current - 1); }
+/* alias used by the QA harness (1-based) */
+function gotoSlide(i){ showSlide(i - 1); }
+function enterPresentation(){
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  showSlide(current);
+  try { if (overlay.requestFullscreen) overlay.requestFullscreen().catch(()=>{}); } catch(e){}
+}
+function exitPresentation(){
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+  try { if (document.fullscreenElement) document.exitFullscreen(); } catch(e){}
+}
+document.addEventListener('keydown', e => {
+  if (!overlay.classList.contains('active')) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+  else if (e.key === 'Home') { e.preventDefault(); showSlide(0); }
+  else if (e.key === 'End') { e.preventDefault(); showSlide(totalSlides - 1); }
+  else if (e.key === 'Escape') { if (editMode) toggleEditMode(); else exitPresentation(); }
+});
+/* touch swipe */
+let touchX = null;
+overlay.addEventListener('touchstart', e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+overlay.addEventListener('touchend', e => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 60) { dx < 0 ? nextSlide() : prevSlide(); }
+  touchX = null;
+}, {passive:true});
+
+/* ============ website nav ============ */
+function showSection(id){
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const link = Array.from(document.querySelectorAll('.nav-link')).find(l => l.getAttribute('onclick').indexOf(id) >= 0);
+  if (link) link.classList.add('active');
+  const el = document.getElementById('sec-' + id);
+  if (el) el.scrollIntoView({behavior:'auto', block:'start'});
+}
+
+/* ============ diagram clone (website -> slide) ============ */
+[['#archHost svg','#archSlideHost']].forEach(p => {
+  const src = document.querySelector(p[0]);
+  const dst = document.querySelector(p[1]);
+  if (!src) throw new Error('diagram source missing: ' + p[0]);
+  if (!dst) throw new Error('diagram host missing: ' + p[1]);
+  if (!dst.querySelector('svg')) dst.appendChild(src.cloneNode(true));
+});
+
+/* ============ edit mode ============ */
+function toggleEditMode(){
+  editMode = !editMode;
+  if (editMode) {
+    if (!overlay.classList.contains('active')) enterPresentation();
+    document.body.classList.add('edit-active');
+    enableEditing();
+  } else {
+    document.body.classList.remove('edit-active');
+    disableEditing();
+  }
+}
+function enableEditing(){
+  document.querySelectorAll('.pres-slide .s-title, .pres-slide .s-sub, .pres-slide .step .tx, .pres-slide .pcard h3, .pres-slide .pcard p, .pres-slide .tbl-s td, .pres-slide figcaption, .pres-slide .note, .pres-slide .ck, .pres-slide .dd li, .pres-slide .pit .tx, .pres-slide h2, .pres-slide p, .pres-slide .lead, .pres-slide .kicker')
+    .forEach(el => el.setAttribute('contenteditable', 'true'));
+}
+function disableEditing(){
+  document.querySelectorAll('[contenteditable="true"]').forEach(el => el.removeAttribute('contenteditable'));
+}
+function refreshManageBars(){
+  totalSlides = document.querySelectorAll('.pres-slide').length;
+  document.getElementById('slideCounter').textContent = (current + 1) + ' / ' + totalSlides;
+}
+function moveSlide(btn, dir){
+  const slide = btn.closest('.pres-slide');
+  const slides = Array.from(document.querySelectorAll('.pres-slide'));
+  const idx = slides.indexOf(slide);
+  const target = idx + dir;
+  if (target < 0 || target >= slides.length) return;
+  if (dir < 0) slides[idx].parentNode.insertBefore(slide, slides[target]);
+  else slides[target].parentNode.insertBefore(slides[target], slide);
+  showSlide(target);
+  refreshManageBars();
+}
+function deleteSlide(btn){
+  const slide = btn.closest('.pres-slide');
+  if (!confirm('ลบสไลด์นี้?')) return;
+  slide.remove();
+  refreshManageBars();
+  showSlide(Math.min(current, totalSlides - 1));
+}
+function addSlide(){
+  const tpl = prompt('เพิ่มสไลด์ใหม่ — พิมพ์หัวข้อสไลด์:');
+  if (!tpl) return;
+  const div = document.createElement('div');
+  div.className = 'pres-slide';
+  div.innerHTML =
+    '<div class="s-top"></div>' +
+    '<div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">สไลด์ใหม่</div></div>' +
+    '<div class="s-inner"><div class="s-label">สไลด์ใหม่</div>' +
+    '<h2 class="s-title">' + tpl.replace(/</g,'&lt;') + '</h2>' +
+    '<div class="s-sub">คลิกเพื่อแก้ไขข้อความ</div>' +
+    '<div class="s-body"><div class="pcard"><p>เนื้อหาสไลด์ใหม่ — แก้ไขได้ทันทีใน Edit Mode</p></div></div></div>' +
+    '<div class="s-foot"><span>macOS ในองค์กร Microsoft</span><span class="pg"></span></div>' +
+    '<div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>';
+  const slides = document.querySelectorAll('.pres-slide');
+  slides[current].parentNode.insertBefore(div, slides[current].nextSibling);
+  if (editMode) enableEditing();
+  showSlide(current + 1);
+  refreshManageBars();
+}
+function saveLocal(){
+  const data = Array.from(document.querySelectorAll('.pres-slide')).map(s => s.innerHTML);
+  localStorage.setItem('macos_ms_deck', JSON.stringify(data));
+  alert('บันทึก ' + data.length + ' สไลด์ลง localStorage แล้ว');
+}
+function exportHtml(){
+  const data = Array.from(document.querySelectorAll('.pres-slide')).map(s => s.innerHTML);
+  localStorage.setItem('macos_ms_deck', JSON.stringify(data));
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelectorAll('.pres-slide').forEach((s, i) => { if (data[i]) s.innerHTML = data[i]; });
+  const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'macos-in-microsoft-org.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function restoreLocal(){
+  const raw = localStorage.getItem('macos_ms_deck');
+  if (!raw) return;
+  try {
+    const data = JSON.parse(raw);
+    const slides = document.querySelectorAll('.pres-slide');
+    if (data.length === slides.length) {
+      data.forEach((html, i) => { slides[i].innerHTML = html; });
+    }
+  } catch(e){}
+}
+restoreLocal();
+window.addEventListener('load', scaleSlides);
+scaleSlides();
+</script>
+</body>
+</html>
