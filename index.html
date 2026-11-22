@@ -338,7 +338,7 @@ body.edit-active .manage-bar{display:flex}
       <tr><td><b>M365 Business Premium 25 users</b></td><td class="num-c">—</td><td class="num-c">฿340,800</td><td>รวม Intune + Entra ID P1 + Defender — <b>ซื้อเพิ่มเฉพาะเมื่อยังไม่มี</b></td></tr>
       <tr><td><b>MDM: Microsoft Intune</b></td><td class="num-c">—</td><td class="num-c">฿0</td><td>รวมอยู่ใน Premium / E3 / E5 แล้ว</td></tr>
 
-      <tr><td><b>ตั้งค่า/โอนย้าย</b> (ทีม IT ภายใน)</td><td class="num-c" colspan="2" style="text-align:center">ประมาณ 2–4 สัปดาห์ · IT 2 คน + pilot 5–10 เครื่อง</td><td>ABM, Intune policy, Conditional Access, pilot</td></tr>
+      <tr><td><b>ตั้งค่า/โอนย้าย</b> (ทีม IT ภายใน)</td><td class="num-c" colspan="2" style="text-align:center">ประมาณ 2–4 สัปดาห์ · IT 2 คน + pilot 10 เครื่องแรก</td><td>ABM, Intune policy, Conditional Access, pilot</td></tr>
     </table>
   </div>
   <div class="note" style="margin-top:24px">💡 สรุปต้นทุนเพิ่มจริง: ถ้าองค์กรมี Microsoft 365 Business Premium (หรือ E3/E5) อยู่แล้ว → <b>license เพิ่ม ฿0 · MDM เพิ่ม ฿0</b> ต้นทุนหลักคือ "เครื่อง + AppleCare + เวลาตั้งค่า" เท่านั้น · ถ้าต้อง upgrade จาก Standard → Premium = ฿90,525/ปี (25 users)</div>
@@ -350,7 +350,7 @@ body.edit-active .manage-bar{display:flex}
   <p class="sub">เริ่มเล็ก วัดผล แล้วขยาย — 4 ระยะใน ~3 เดือน</p>
   <div class="card-grid g4">
     <div class="wcard"><div class="num">P0</div><h3>สำรวจ (2 สัปดาห์)</h3><p>ทำ inventory แอป/ระบบ, ระบุ Windows-only app, ตรวจ license ที่มีอยู่, ตั้งค่า Microsoft Intune</p></div>
-    <div class="wcard"><div class="num">P1</div><h3>Pilot (4 สัปดาห์)</h3><p>5–10 เครื่อง → ตั้ง ABM + Intune + Entra Join + Conditional Access, เก็บ feedback</p></div>
+    <div class="wcard"><div class="num">P1</div><h3>Pilot (4 สัปดาห์)</h3><p>10 เครื่องแรก → ตั้ง ABM + Intune + Entra Join + Conditional Access, เก็บ feedback</p></div>
     <div class="wcard"><div class="num">P2</div><h3>มาตรฐาน (4 สัปดาห์)</h3><p>เขียน standard build, นโยบายเบิก/คืน, helpdesk runbook, ย้ายไฟล์ขึ้น SharePoint</p></div>
     <div class="wcard"><div class="num">P3</div><h3>ขยายผล (ต่อเนื่อง)</h3><p>แจกตาม role, ประเมิน TCO จริง ราย 6 เดือน, ทบทวน Windows-only apps ซ้ำ</p></div>
   </div>
@@ -358,8 +358,12 @@ body.edit-active .manage-bar{display:flex}
     <div class="wcard"><h3>⚠️ ความเสี่ยงหลัก</h3><ul><li><b>แอปที่มีเฉพาะ Windows</b> (internal tool, ActiveX, banking plugin) → ต้องทดสอบ/หาทางแทน</li><li><b>ปริ้นเตอร์และ file share เดิม</b> → ต้องย้ายเป็น AirPrint/Universal Print และ SharePoint</li><li><b>ทีม support</b> ต้องเรียนรู้ MDM + macOS เพิ่ม</li></ul></div>
     <div class="wcard"><h3>✅ สิ่งที่ไม่ต้องกังวล</h3><ul><li>บัญชี/MFA/Conditional Access — ใช้ Entra ID ชุดเดิม</li><li>Office/Teams/Outlook — มีบน Mac ครบ</li><li>Antivirus — Defender for Endpoint รองรับ macOS</li><li>MDM — ฝังใน macOS ไม่ต้องติดตั้ง agent แปลกปลอม</li></ul></div>
   </div>
+  <div class="card-grid g2" style="margin-top:26px">
+    <div class="wcard"><h3>🤝 ขอบเขตการสนับสนุน: IT ภายใน vs Vendor</h3><ul><li><b>IT ภายใน:</b> Entra ID/Conditional Access/license · MDM policy + compliance · นโยบายเบิก/คืน · Helpdesk Tier-1 · อนุมัติแอปองค์กร</li><li><b>Vendor (หลังการขาย):</b> enroll แอปที่องค์กรใช้เข้า ABM/MDM · patch/update + hotfix · ตั้งค่าเครื่องก่อนส่งมอบ · ซ่อม/RMA ผ่านศูนย์ Apple รับรอง · ฝึกอบรม + SLA</li></ul></div>
+    <div class="wcard"><h3>🏛️ ผู้ให้บริการที่มีประสบการณ์ (ตรวจสอบจากแหล่งสาธารณะ)</h3><ul><li><b>Com7 Business</b> (com7business.com): ABM+MDM zero-touch, ดูแลตลอดวงจรอายุ, iCare ศูนย์ Apple รับรอง, รองรับ M365/SAP/Salesforce + แอปภายในองค์กร</li><li><b>UiT</b> (uit.co.th): System Integrator ตั้งแต่ 2544 — network/data center/VDI/IT leasing + บริการหลังการขาย (ผลงานสาธารณะเป็น รพ. — ควรขอ reference Mac/ธนาคารเพิ่ม)</li><li><b>ธนาคารที่ใช้ Mac ด้าน development</b> (SCB, Krungsri, KTB): ควรขอเอกสารอ้างอิง/ตัวอย่างหน้างานจากผู้ให้บริการก่อนเสนอราคา</li></ul></div>
+  </div>
   <div class="sec-foot">
-    <span>แหล่งอ้างอิง: apple.com/th · support.apple.com/guide/business · microsoft.com/microsoft-365 · learn.microsoft.com/intune · jamf.com/pricing · iru.com/pricing</span>
+    <span>แหล่งอ้างอิง: apple.com/th · support.apple.com/guide/business · microsoft.com/microsoft-365 · learn.microsoft.com/intune · jamf.com/pricing · iru.com/pricing · com7business.com · uit.co.th</span>
     <span>ข้อมูล ณ 23/11/2026</span>
   </div>
 </section>
@@ -399,7 +403,7 @@ body.edit-active .manage-bar{display:flex}
             <div class="pcard"><span class="ic">📱</span><div class="big">฿0</div><h3>MDM เพิ่ม</h3><p>Intune รวมอยู่ใน Business Premium / E3 / E5 แล้ว — ไม่มีค่า MDM เพิ่ม</p></div>
             <div class="pcard"><span class="ic">📦</span><div class="big">฿44,900</div><h3>ราคาเครื่องเริ่มต้น</h3><p>MacBook Air 13" M5 — จ่ายเฉพาะเครื่อง + AppleCare เมื่อมี license อยู่แล้ว</p></div>
           </div>
-          <div class="rulebox"><span class="lk">🎯</span><span>ข้อเสนอ: เริ่มจาก pilot 5–10 เครื่อง · ใช้ ABM + Intune + Entra Join · ย้ายไฟล์ขึ้น SharePoint · วัดผล 4 สัปดาห์ก่อนขยาย</span></div>
+          <div class="rulebox"><span class="lk">🎯</span><span>ข้อเสนอ: เริ่มจาก pilot 10 เครื่องแรก · ใช้ ABM + Intune + Entra Join · ย้ายไฟล์ขึ้น SharePoint · วัดผล 4 สัปดาห์ก่อนขยาย</span></div>
         </div>
       </div>
       <div class="s-foot"><span>macOS ในองค์กร Microsoft · ภาพรวม</span><span class="pg"></span></div>
@@ -623,7 +627,7 @@ body.edit-active .manage-bar{display:flex}
         <div class="s-body">
           <div class="cards3">
             <div class="pcard"><span class="pill">P0 · 2 สัปดาห์</span><h3>สำรวจ &amp; ออกแบบ</h3><p>ทำ inventory แอป/ระบบ · ระบุ Windows-only app · ตรวจ license ที่มีอยู่ · ตั้งค่า Microsoft Intune และเขียน standard build</p></div>
-            <div class="pcard"><span class="pill">P1 · 4 สัปดาห์</span><h3>Pilot 5–10 เครื่อง</h3><p>ตั้ง ABM + Intune + Entra Join + Conditional Access · ทดสอบแอป/ปริ้น/ไฟล์จริง · เก็บ feedback รายสัปดาห์</p></div>
+            <div class="pcard"><span class="pill">P1 · 4 สัปดาห์</span><h3>Pilot 10 เครื่องแรก</h3><p>ตั้ง ABM + Intune + Entra Join + Conditional Access · ทดสอบแอป/ปริ้น/ไฟล์จริง · เก็บ feedback รายสัปดาห์</p></div>
             <div class="pcard"><span class="pill">P2 · 4 สัปดาห์</span><h3>ทำเป็นมาตรฐาน</h3><p>นิยาม standard build ตาม role · นโยบายเบิก/คืน · helpdesk runbook · เริ่มย้ายไฟล์ขึ้น SharePoint</p></div>
           </div>
           <div class="cards3">
@@ -637,7 +641,48 @@ body.edit-active .manage-bar{display:flex}
       <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
     </div>
 
-    <!-- ========== 13 CHECKLIST ========== -->
+    <!-- ========== 13 PILOT & SUPPORT SPLIT ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">นำร่อง &amp; การสนับสนุน</div></div>
+      <div class="s-inner">
+        <div class="s-label">Pilot &amp; Support Model</div>
+        <h2 class="s-title">นำร่อง 10 เครื่องแรก — IT ทำอะไร / Vendor ทำอะไร</h2>
+        <div class="s-sub">ขอบเขตงานชัดเจนตั้งแต่วันแรก · pilot 10 เครื่อง · 4 สัปดาห์ · ทีม IT 2 คน — ไม่ให้ช่วงเปลี่ยนผ่านสะดุด</div>
+        <div class="s-body">
+          <div class="gcols">
+            <div class="pcard"><span class="pill green">✅ IT ภายใน — ต้อง support เอง</span><p>• Entra ID, Conditional Access, license (Premium / E3)<br>• MDM policy baseline + compliance + FileVault escrow<br>• นโยบายเบิก/คืน, asset register, อนุมัติแอปที่องค์กรใช้<br>• Helpdesk Tier-1 + onboarding / offboarding<br>• ซื้อ/ต่อ AppleCare + ประสานงานกับ vendor<br>• เก็บ feedback และตัดสินใจ go/no-go รายสัปดาห์</p></div>
+            <div class="pcard"><span class="pill">🤝 Vendor / ผู้ให้บริการ — บริการหลังการขาย</span><p>• <b>enroll software ที่องค์กรใช้</b> เข้า ABM/MDM (zero-touch)<br>• <b>patch / update</b> macOS + แอปตามรอบ + <b>hotfix</b> เมื่อมีช่องโหว่<br>• ตั้งค่าเครื่องก่อนส่งมอบ + ติดตั้งแอปตามกลุ่มผู้ใช้<br>• ซ่อม/เปลี่ยน (RMA) ผ่านศูนย์ที่ Apple รับรอง + ประสาน AppleCare<br>• ฝึกอบรมทีม IT + เขียน runbook + SLA รายปี</p></div>
+          </div>
+          <div class="rulebox"><span class="lk">🎯</span><span>Pilot 10 เครื่องแรก (4 สัปดาห์) → วัดผลด้วยเกณฑ์ go/no-go → ขยายสู่ 25 เครื่องตามแผน — ทุกงานด้านบนระบุในสัญญา SLA กับผู้ให้บริการ</span></div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · นำร่อง &amp; การสนับสนุน</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 14 PARTNERS & BANK REFERENCES ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">ผู้ให้บริการ &amp; กรณีธนาคาร</div></div>
+      <div class="s-inner">
+        <div class="s-label">Partners &amp; References</div>
+        <h2 class="s-title">ผู้ให้บริการที่มีประสบการณ์ &amp; การใช้ Mac ในธนาคาร</h2>
+        <div class="s-sub">ตรวจสอบจากแหล่งสาธารณะ ณ 23/11/2026 — ใช้เป็นเกณฑ์คัดเลือก vendor และขอเอกสารอ้างอิงเพิ่ม</div>
+        <div class="s-body">
+          <div class="cards3">
+            <div class="pcard"><span class="pill green">✓ ตรวจสอบแล้ว</span><h3>Com7 Business</h3><p>• ABM + MDM zero-touch — "ดูแลอุปกรณ์ 10 หรือ 10,000 เครื่อง"<br>• ดูแลตลอดวงจรออายุ: จัดซื้อ → เปลี่ยน → รีไซเคิล<br>• iCare ศูนย์บริการรับรองโดย Apple (ช่างเทคนิค certified)<br>• รองรับ M365, Salesforce, SAP, Adobe + แอปพัฒนาภายในองค์กร<br>• ตั้งค่าสภาพแวดล้อมแอปเฉพาะองค์กร + ฝึกอบรม</p></div>
+            <div class="pcard"><span class="pill green">✓ ตรวจสอบแล้ว</span><h3>UiT — Universal Information Technology</h3><p>• System Integrator ตั้งแต่ปี 2544 · ทุนจดทะเบียน 10 ล้านบาท<br>• งานหลัก: network, Smart Data Center, HCI, <b>VDI</b>, IT Leasing<br>• บริการหลังการขายระบบคอมพิวเตอร์<br>• ⚠️ ผลงานสาธารณะบนเว็บเป็น รพ. (ราชวิถี, รามาธิบดี) — <b>ยังไม่พบหน้างาน Mac/ธนาคาร</b> → ขอ reference เพิ่มก่อนตัดสินใจ</p></div>
+            <div class="pcard"><span class="pill warn">อ้างอิงเชิงอุตสาหกรรม</span><h3>ธนาคารที่ใช้ Mac ด้าน development</h3><p>• <b>SCB · Krungsri · KTB</b> — ใช้ MacBook ในทีมพัฒนา/digital เป็นส่วนใหญ่<br>• เป็นแนวปฏิบัติที่พบในตลาดแรงงาน IT ไทย<br>• เอกสารอ้างอิงอย่างเป็นทางการ → <b>ขอผ่านผู้ให้บริการ</b> (Com7 Business / UiT) หรือขอตัวอย่างหน้างานก่อนเสนอราคาจริง</p></div>
+          </div>
+          <div class="small-note">แหล่งอ้างอิง: com7business.com/apple-solutions/business · com7business.com/hardware/mac · uit.co.th/about · ผลค้นหาสาธารณะ ไม่พบเอกสารยืนยันโดยตรงของทั้ง 3 ธนาคาร → ยืนยันกับ vendor ก่อนใช้ในข้อเสนอจริง</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · ผู้ให้บริการ &amp; กรณีธนาคาร</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 15 CHECKLIST ========== -->
     <div class="pres-slide">
       <div class="s-top"></div>
       <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Checklist</div></div>
@@ -658,7 +703,7 @@ body.edit-active .manage-bar{display:flex}
               <div class="ck"><span class="box"></span>เปิด FileVault + escrow recovery key ที่ MDM</div>
               <div class="ck"><span class="box"></span>ทดสอบปริ้นเตอร์/VPN/ไฟล์แชร์ ในสภาพจริง</div>
               <div class="ck"><span class="box"></span>อบรม helpdesk + เขียน runbook (enroll, wipe, ซ่อม)</div>
-              <div class="ck"><span class="box"></span>จัด pilot 5–10 เครื่อง · วัดผล 4 สัปดาห์</div>
+              <div class="ck"><span class="box"></span>จัด pilot 10 เครื่องแรก · วัดผล 4 สัปดาห์</div>
               <div class="ck"><span class="box"></span>ขอใบเสนอราคาเครื่อง + AppleCare จากตัวแทน</div>
             </div>
           </div>

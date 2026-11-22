@@ -337,7 +337,7 @@ body.edit-active .manage-bar{display:flex}
       <tr><td><b>AppleCare for Business</b> (~10%)</td><td class="num-c">฿112,250</td><td class="num-c">—</td><td>Estimate — actual per reseller quote</td></tr>
       <tr><td><b>M365 Business Premium, 25 users</b></td><td class="num-c">—</td><td class="num-c">฿340,800</td><td>Includes Intune + Entra ID P1 + Defender — <b>bought only if not already owned</b></td></tr>
       <tr><td><b>MDM: Microsoft Intune</b> <span class="pill green">selected</span></td><td class="num-c">—</td><td class="num-c">฿0</td><td>Included in Premium / E3 / E5 already</td></tr>
-      <tr><td><b>Setup / migration</b> (in-house IT)</td><td class="num-c" colspan="2" style="text-align:center">approx. 2–4 weeks · 2 IT staff + 5–10 device pilot</td><td>ABM, Intune policy, Conditional Access, pilot</td></tr>
+      <tr><td><b>Setup / migration</b> (in-house IT)</td><td class="num-c" colspan="2" style="text-align:center">approx. 2–4 weeks · 2 IT staff + first-10-device pilot</td><td>ABM, Intune policy, Conditional Access, pilot</td></tr>
     </table>
   </div>
   <div class="note" style="margin-top:24px">💡 Bottom line: if the organization already has Microsoft 365 Business Premium (or E3/E5) → <b>extra license ฿0 · extra MDM ฿0</b> — the real cost is "hardware + AppleCare + setup time" · upgrading Standard → Premium costs ฿90,525/year (25 users)</div>
@@ -349,7 +349,7 @@ body.edit-active .manage-bar{display:flex}
   <p class="sub">Start small, measure, then scale — 4 phases in ~3 months</p>
   <div class="card-grid g4">
     <div class="wcard"><div class="num">P0</div><h3>Assess (2 weeks)</h3><p>Inventory apps/systems, identify Windows-only apps, check existing licenses, set up Microsoft Intune</p></div>
-    <div class="wcard"><div class="num">P1</div><h3>Pilot (4 weeks)</h3><p>5–10 devices → ABM + Intune + Entra Join + Conditional Access, collect feedback</p></div>
+    <div class="wcard"><div class="num">P1</div><h3>Pilot (4 weeks)</h3><p>First 10 devices → ABM + Intune + Entra Join + Conditional Access, collect feedback</p></div>
     <div class="wcard"><div class="num">P2</div><h3>Standardize (4 weeks)</h3><p>Write the standard build, issue/return policy, helpdesk runbook, move files to SharePoint</p></div>
     <div class="wcard"><div class="num">P3</div><h3>Scale (ongoing)</h3><p>Roll out by role, review real TCO every 6 months, re-check Windows-only apps</p></div>
   </div>
@@ -357,8 +357,12 @@ body.edit-active .manage-bar{display:flex}
     <div class="wcard"><h3>⚠️ Key risks</h3><ul><li><b>Windows-only apps</b> (internal tools, ActiveX, banking plugins) → test / find alternatives</li><li><b>Legacy printers and file shares</b> → move to AirPrint/Universal Print and SharePoint</li><li><b>Support team</b> must learn MDM + macOS</li></ul></div>
     <div class="wcard"><h3>✅ Non-issues</h3><ul><li>Accounts/MFA/Conditional Access — same Entra ID tenant</li><li>Office/Teams/Outlook — fully available on Mac</li><li>Antivirus — Defender for Endpoint supports macOS</li><li>MDM — built into macOS, no foreign agent required</li></ul></div>
   </div>
+  <div class="card-grid g2" style="margin-top:26px">
+    <div class="wcard"><h3>🤝 Support split: in-house IT vs vendor</h3><ul><li><b>In-house IT:</b> Entra ID/Conditional Access/licenses · MDM policy + compliance · issue/return policy · Helpdesk Tier-1 · approving org apps</li><li><b>Vendor (after-sales):</b> enroll org software into ABM/MDM · patch/update + hotfix · pre-delivery setup · repairs/RMA via Apple-certified center · training + SLA</li></ul></div>
+    <div class="wcard"><h3>🏛️ Experienced providers (verified from public sources)</h3><ul><li><b>Com7 Business</b> (com7business.com): ABM+MDM zero-touch, full lifecycle, iCare Apple-certified center, supports M365/SAP/Salesforce + in-house apps</li><li><b>UiT</b> (uit.co.th): System Integrator since 2001 — network/data center/VDI/IT leasing + after-sales (public references are hospitals — request Mac/bank references)</li><li><b>Banks using Mac for development</b> (SCB, Krungsri, KTB): request references/site examples from the provider before quoting</li></ul></div>
+  </div>
   <div class="sec-foot">
-    <span>Sources: apple.com/th · support.apple.com/guide/business · microsoft.com/microsoft-365 · learn.microsoft.com/intune · jamf.com/pricing · iru.com/pricing</span>
+    <span>Sources: apple.com/th · support.apple.com/guide/business · microsoft.com/microsoft-365 · learn.microsoft.com/intune · jamf.com/pricing · iru.com/pricing · com7business.com · uit.co.th</span>
     <span>Data as of 23/11/2026</span>
   </div>
 </section>
@@ -398,7 +402,7 @@ body.edit-active .manage-bar{display:flex}
             <div class="pcard"><span class="ic">📱</span><div class="big">฿0</div><h3>No extra MDM cost</h3><p>Intune is already included in Business Premium / E3 / E5 — Microsoft Intune is the selected MDM</p></div>
             <div class="pcard"><span class="ic">📦</span><div class="big">฿44,900</div><h3>Entry hardware price</h3><p>MacBook Air 13" M5 — you pay only for devices + AppleCare when licenses already exist</p></div>
           </div>
-          <div class="rulebox"><span class="lk">🎯</span><span>Proposal: start with a 5–10 device pilot · ABM + Intune + Entra Join · move files to SharePoint · measure for 4 weeks before scaling</span></div>
+          <div class="rulebox"><span class="lk">🎯</span><span>Proposal: start with a 10-device pilot · ABM + Intune + Entra Join · move files to SharePoint · measure for 4 weeks before scaling</span></div>
         </div>
       </div>
       <div class="s-foot"><span>macOS in a Microsoft organization · Overview</span><span class="pg"></span></div>
@@ -621,7 +625,7 @@ body.edit-active .manage-bar{display:flex}
         <div class="s-body">
           <div class="cards3">
             <div class="pcard"><span class="pill">P0 · 2 weeks</span><h3>Assess &amp; design</h3><p>Inventory apps/systems · identify Windows-only apps · check existing licenses · set up Microsoft Intune and write the standard build</p></div>
-            <div class="pcard"><span class="pill">P1 · 4 weeks</span><h3>5–10 device pilot</h3><p>Configure ABM + Intune + Entra Join + Conditional Access · test real apps/printing/files · weekly feedback</p></div>
+            <div class="pcard"><span class="pill">P1 · 4 weeks</span><h3>First 10 devices pilot</h3><p>Configure ABM + Intune + Entra Join + Conditional Access · test real apps/printing/files · weekly feedback</p></div>
             <div class="pcard"><span class="pill">P2 · 4 weeks</span><h3>Make it a standard</h3><p>Standard build per role · issue/return policy · helpdesk runbook · start moving files to SharePoint</p></div>
           </div>
           <div class="cards3">
@@ -635,7 +639,48 @@ body.edit-active .manage-bar{display:flex}
       <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
     </div>
 
-    <!-- ========== 13 CHECKLIST ========== -->
+    <!-- ========== 13 PILOT & SUPPORT SPLIT ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Pilot &amp; Support</div></div>
+      <div class="s-inner">
+        <div class="s-label">Pilot &amp; Support Model</div>
+        <h2 class="s-title">First 10 devices — what IT does vs what the vendor does</h2>
+        <div class="s-sub">Clear scope from day one · 10-device pilot · 4 weeks · 2 IT staff — so the transition never stalls</div>
+        <div class="s-body">
+          <div class="gcols">
+            <div class="pcard"><span class="pill green">✅ In-house IT — must support</span><p>• Entra ID, Conditional Access, licenses (Premium / E3)<br>• MDM policy baseline + compliance + FileVault escrow<br>• Issue/return policy, asset register, approval of org apps<br>• Helpdesk Tier-1 + onboarding / offboarding<br>• Buy/renew AppleCare + coordinate with the vendor<br>• Collect feedback and decide go/no-go weekly</p></div>
+            <div class="pcard"><span class="pill">🤝 Vendor — after-sales service</span><p>• <b>Enroll the software the organization uses</b> into ABM/MDM (zero-touch)<br>• <b>Patch / update</b> macOS + apps on schedule + <b>hotfix</b> when vulnerabilities appear<br>• Pre-delivery setup + app install per user group<br>• Repairs/replacement (RMA) via Apple-certified center + AppleCare coordination<br>• Train the IT team + write runbooks + annual SLA</p></div>
+          </div>
+          <div class="rulebox"><span class="lk">🎯</span><span>10-device pilot (4 weeks) → measure against go/no-go criteria → expand to 25 devices per plan — every item above is written into the provider's SLA</span></div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Pilot &amp; Support</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 14 PARTNERS & BANK REFERENCES ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Partners &amp; Banks</div></div>
+      <div class="s-inner">
+        <div class="s-label">Partners &amp; References</div>
+        <h2 class="s-title">Experienced providers &amp; Mac usage in Thai banks</h2>
+        <div class="s-sub">Verified from public sources as of 23/11/2026 — use as vendor selection criteria and request further references</div>
+        <div class="s-body">
+          <div class="cards3">
+            <div class="pcard"><span class="pill green">✓ verified</span><h3>Com7 Business</h3><p>• ABM + MDM zero-touch — "manage 10 or 10,000 devices"<br>• Full lifecycle: procurement → replacement → recycling<br>• iCare service center certified by Apple (Apple-certified technicians)<br>• Supports M365, Salesforce, SAP, Adobe + in-house-built apps<br>• Per-organization app environment setup + training</p></div>
+            <div class="pcard"><span class="pill green">✓ verified</span><h3>UiT — Universal Information Technology</h3><p>• System Integrator since 2001 · registered capital THB 10M<br>• Core work: network, Smart Data Center, HCI, <b>VDI</b>, IT Leasing<br>• After-sales service for computer systems<br>• ⚠️ Public website references are hospitals (Rajavithi, Ramathibodi) — <b>no Mac/bank sites found yet</b> → request references before deciding</p></div>
+            <div class="pcard"><span class="pill warn">Industry-level reference</span><h3>Banks using Mac for development</h3><p>• <b>SCB · Krungsri · KTB</b> — MacBook used mainly in development/digital teams<br>• Common practice observed in Thailand's IT job market<br>• Formal documentation → <b>request via the provider</b> (Com7 Business / UiT) or ask for a site reference before the real quote</p></div>
+          </div>
+          <div class="small-note">Sources: com7business.com/apple-solutions/business · com7business.com/hardware/mac · uit.co.th/about · public searches did not surface direct documentation for the three banks → confirm with the vendor before using in a real proposal</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Partners &amp; Banks</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 15 CHECKLIST ========== -->
     <div class="pres-slide">
       <div class="s-top"></div>
       <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Checklist</div></div>
@@ -656,7 +701,7 @@ body.edit-active .manage-bar{display:flex}
               <div class="ck"><span class="box"></span>Turn on FileVault + escrow the recovery key in MDM</div>
               <div class="ck"><span class="box"></span>Test printing / VPN / file shares in real conditions</div>
               <div class="ck"><span class="box"></span>Train helpdesk + write runbook (enroll, wipe, repair)</div>
-              <div class="ck"><span class="box"></span>Run a 5–10 device pilot · measure for 4 weeks</div>
+              <div class="ck"><span class="box"></span>Run a first-10-device pilot · measure for 4 weeks</div>
               <div class="ck"><span class="box"></span>Request hardware + AppleCare quotes from the reseller</div>
             </div>
           </div>
