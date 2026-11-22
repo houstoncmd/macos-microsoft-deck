@@ -194,6 +194,7 @@ body.edit-active .manage-bar{display:flex}
     <button class="nav-link" onclick="showSection('roadmap')">แผน &amp; ความเสี่ยง</button>
   </div>
   <div class="nav-actions">
+    <a class="btn btn-ghost" href="en.html" style="text-decoration:none">EN</a>
     <button class="btn btn-ghost" onclick="toggleEditMode()">Edit Mode</button>
     <button class="btn btn-primary" onclick="enterPresentation()">▶ Presentation Mode</button>
   </div>
@@ -206,7 +207,7 @@ body.edit-active .manage-bar{display:flex}
   <p>สิ่งที่ต้องมี สถาปัตยกรรมอ้างอิง และค่าใช้จ่ายเบื้องต้น — เริ่มจาก Identity (Entra ID) + Device management (Intune/ABM) เป็นแกน แล้วค่อยต่อ apps, ข้อมูล และความปลอดภัย</p>
   <div class="meta">
     <span class="chip">Apple Business Manager (ฟรี)</span>
-    <span class="chip">Intune รวมอยู่ใน license</span>
+    <span class="chip">เลือกใช้ Microsoft Intune (รวมใน license)</span>
     <span class="chip">MacBook Air เริ่ม ฿44,900</span>
     <span class="chip">ราคา ณ 23 พ.ย. 2026</span>
   </div>
@@ -229,7 +230,7 @@ body.edit-active .manage-bar{display:flex}
   <p class="sub">6 หมวดหลักที่ต้องเตรียมก่อนแจก Mac จริง — เรียงตามลำดับความจำเป็น</p>
   <div class="card-grid g3">
     <div class="wcard"><div class="num">1</div><h3>Identity &amp; Access</h3><ul><li>Microsoft Entra ID (Azure AD) เป็น IdP หลัก</li><li>Platform SSO / passwordless (Touch ID)</li><li>Conditional Access: เฉพาะเครื่องที่ผ่าน compliance</li></ul></div>
-    <div class="wcard"><div class="num">2</div><h3>Device Management</h3><ul><li>Apple Business Manager (ฟรี) + ADE</li><li>MDM: Microsoft Intune (รวม license) หรือ Jamf Pro</li><li>FileVault escrow (กุญแจเข้ารหัสเก็บที่ MDM)</li></ul></div>
+    <div class="wcard"><div class="num">2</div><h3>Device Management</h3><ul><li>Apple Business Manager (ฟรี) + ADE</li><li>MDM: <b>Microsoft Intune</b> (เลือกใช้ — รวมอยู่ใน license แล้ว)</li><li>FileVault escrow (กุญแจเข้ารหัสเก็บที่ MDM)</li></ul></div>
     <div class="wcard"><div class="num">3</div><h3>Licensing</h3><ul><li>M365 Business Premium / E3 ขึ้นไป (รวม Intune)</li><li>Microsoft 365 apps for Mac (Standard ขึ้นไป)</li><li>Defender for Endpoint บน macOS</li></ul></div>
     <div class="wcard"><div class="num">4</div><h3>Apps &amp; Compatibility</h3><ul><li>สำรวจ LOB app / internal web app ที่ผูก IE/ActiveX</li><li>ทางเลือกสำหรับ app ที่มีเฉพาะ Windows: VM (UTM/Parallels)</li><li>Adobe, Teams, Office, browser — ใช้ได้ native</li></ul></div>
     <div class="wcard"><div class="num">5</div><h3>Network, Print, File</h3><ul><li>Wi-Fi/VPN ผ่าน profile ที่ push โดย MDM</li><li>ปริ้นเตอร์: AirPrint หรือ Universal Print (แทน print server เดิม)</li><li>ไฟล์: SharePoint/OneDrive แทน SMB share เดิม</li></ul></div>
@@ -274,7 +275,7 @@ body.edit-active .manage-bar{display:flex}
       <rect x="819" y="176" width="9" height="9" fill="#81bc06"/>
       <rect x="819" y="189" width="9" height="9" fill="#05a6f0"/>
       <rect x="806" y="189" width="9" height="9" fill="#ffba08"/>
-      <text x="856" y="186" fill="#0f172a" font-size="23" font-weight="700">MDM: Microsoft Intune (รวมใน license) หรือ Jamf Pro</text>
+      <text x="856" y="186" fill="#0f172a" font-size="23" font-weight="700">MDM: Microsoft Intune — เลือกใช้ (รวมใน license แล้ว)</text>
       <text x="856" y="213" fill="#475569" font-size="16.5">Wi-Fi/VPN profile · app catalog · compliance · FileVault escrow · wipe/lock ระยะไกล</text>
 
       <line x1="1135" y1="230" x2="1135" y2="278" stroke="#0f172a" stroke-width="2.5" marker-end="url(#arrK)"/>
@@ -336,7 +337,7 @@ body.edit-active .manage-bar{display:flex}
       <tr><td><b>AppleCare for Business</b> (ประมาณ 10%)</td><td class="num-c">฿112,250</td><td class="num-c">—</td><td>ราคาจริงตามใบเสนอราคาตัวแทน</td></tr>
       <tr><td><b>M365 Business Premium 25 users</b></td><td class="num-c">—</td><td class="num-c">฿340,800</td><td>รวม Intune + Entra ID P1 + Defender — <b>ซื้อเพิ่มเฉพาะเมื่อยังไม่มี</b></td></tr>
       <tr><td><b>MDM: Microsoft Intune</b></td><td class="num-c">—</td><td class="num-c">฿0</td><td>รวมอยู่ใน Premium / E3 / E5 แล้ว</td></tr>
-      <tr><td><b>ทางเลือก: Jamf Pro</b> ($4/device/mo)</td><td class="num-c">—</td><td class="num-c">฿42,600</td><td>เสริมเมื่อต้องการ Apple-native tooling ลึกๆ</td></tr>
+
       <tr><td><b>ตั้งค่า/โอนย้าย</b> (ทีม IT ภายใน)</td><td class="num-c" colspan="2" style="text-align:center">ประมาณ 2–4 สัปดาห์ · IT 2 คน + pilot 5–10 เครื่อง</td><td>ABM, Intune policy, Conditional Access, pilot</td></tr>
     </table>
   </div>
@@ -348,7 +349,7 @@ body.edit-active .manage-bar{display:flex}
   <h2>แผนนำร่อง &amp; ความเสี่ยง</h2>
   <p class="sub">เริ่มเล็ก วัดผล แล้วขยาย — 4 ระยะใน ~3 เดือน</p>
   <div class="card-grid g4">
-    <div class="wcard"><div class="num">P0</div><h3>สำรวจ (2 สัปดาห์)</h3><p>ทำ inventory แอป/ระบบ, ระบุ Windows-only app, ตรวจ license ที่มีอยู่, เลือก MDM</p></div>
+    <div class="wcard"><div class="num">P0</div><h3>สำรวจ (2 สัปดาห์)</h3><p>ทำ inventory แอป/ระบบ, ระบุ Windows-only app, ตรวจ license ที่มีอยู่, ตั้งค่า Microsoft Intune</p></div>
     <div class="wcard"><div class="num">P1</div><h3>Pilot (4 สัปดาห์)</h3><p>5–10 เครื่อง → ตั้ง ABM + Intune + Entra Join + Conditional Access, เก็บ feedback</p></div>
     <div class="wcard"><div class="num">P2</div><h3>มาตรฐาน (4 สัปดาห์)</h3><p>เขียน standard build, นโยบายเบิก/คืน, helpdesk runbook, ย้ายไฟล์ขึ้น SharePoint</p></div>
     <div class="wcard"><div class="num">P3</div><h3>ขยายผล (ต่อเนื่อง)</h3><p>แจกตาม role, ประเมิน TCO จริง ราย 6 เดือน, ทบทวน Windows-only apps ซ้ำ</p></div>
@@ -375,7 +376,7 @@ body.edit-active .manage-bar{display:flex}
         <div class="lead">สิ่งที่ต้องมี · สถาปัตยกรรมอ้างอิง · ค่าใช้จ่ายเบื้องต้น — เริ่มจาก Entra ID + MDM เป็นแกน</div>
         <div class="tmeta">
           <span class="chip">Apple Business Manager (ฟรี)</span>
-          <span class="chip">Intune รวมอยู่ใน license</span>
+          <span class="chip">MDM = Microsoft Intune</span>
           <span class="chip">MacBook Air เริ่ม ฿44,900</span>
           <span class="chip">23 พฤศจิกายน 2026</span>
         </div>
@@ -416,7 +417,7 @@ body.edit-active .manage-bar{display:flex}
         <div class="s-body">
           <div class="cards3">
             <div class="pcard"><h3>1 · Identity &amp; Access</h3><p>Entra ID เป็น IdP หลัก · Platform SSO / passwordless · Conditional Access บังคับเครื่องที่ผ่าน compliance เท่านั้น</p></div>
-            <div class="pcard"><h3>2 · Device Management</h3><p>Apple Business Manager (ฟรี) + Automated Device Enrollment · MDM = Intune หรือ Jamf · FileVault escrow</p></div>
+            <div class="pcard"><h3>2 · Device Management</h3><p>Apple Business Manager (ฟรี) + Automated Device Enrollment · MDM = <b>Microsoft Intune</b> (เลือกใช้) · FileVault escrow</p></div>
             <div class="pcard"><h3>3 · Licensing</h3><p>Microsoft 365 Business Premium / E3 ขึ้นไป (รวม Intune) · M365 apps for Mac · Defender for Endpoint</p></div>
             <div class="pcard"><h3>4 · Apps &amp; Compatibility</h3><p>สำรวจ LOB app ที่ผูก Windows/ActiveX · ทางเลือก VM (UTM/Parallels) สำหรับแอปที่มีเฉพาะ Windows</p></div>
             <div class="pcard"><h3>5 · Network · Print · File</h3><p>Wi-Fi/VPN ผ่าน MDM profile · AirPrint / Universal Print · SharePoint/OneDrive แทน SMB share</p></div>
@@ -474,7 +475,7 @@ body.edit-active .manage-bar{display:flex}
           <div class="steps">
             <div class="step"><div class="n">1</div><div class="tx"><b>สั่งซื้อ + ผูก ABM</b> — ซื้อผ่านตัวแทนที่ลงทะเบียนกับ Apple Business Manager เครื่องเข้าองค์กรอัตโนมัติ (ไม่ต้องพิมพ์ serial)</div></div>
             <div class="step"><div class="n">2</div><div class="tx"><b>เปิดเครื่อง → ADE</b> — Setup Assistant แสดงหน้าตามที่องค์กรกำหนด บังคับ Entra Join + ติดตั้ง Wi-Fi/VPN profile ก่อนเข้าใช้งาน</div></div>
-            <div class="step"><div class="n">3</div><div class="tx"><b>ลง MDM + baseline</b> — FileVault เปิดอัตโนมัติ + escrow กุญแจ, Defender ติดตั้ง, app catalog (Office/Teams/Line-of-business)</div></div>
+            <div class="step"><div class="n">3</div><div class="tx"><b>ลง Microsoft Intune + baseline</b> — FileVault เปิดอัตโนมัติ + escrow กุญแจ, Defender ติดตั้ง, app catalog (Office/Teams/Line-of-business)</div></div>
             <div class="step"><div class="n">4</div><div class="tx"><b>ใช้งาน + compliance</b> — Conditional Access เช็คสถานะรายวัน: เครื่องไม่ผ่าน policy = เข้าข้อมูลองค์กรไม่ได้</div></div>
             <div class="step"><div class="n">5</div><div class="tx"><b>ซ่อม / โอน / คืน</b> — AppleCare for Business ซ่อมผ่านตัวแทน · โอนเครื่องเปลี่ยนผู้ใช้ผ่าน ABM · คืนเครื่อง = wipe ระยะไกล</div></div>
           </div>
@@ -517,14 +518,14 @@ body.edit-active .manage-bar{display:flex}
       <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">MDM Options</div></div>
       <div class="s-inner">
         <div class="s-label">MDM Options</div>
-        <h2 class="s-title">ทางเลือก MDM เปรียบเทียบ</h2>
-        <div class="s-sub">เริ่มจาก Intune ที่จ่ายอยู่แล้ว — ย้ายไป Jamf/Iru เมื่อต้องการ capability ระดับ Apple-native</div>
+        <h2 class="s-title">เลือก Microsoft Intune เป็น MDM หลัก</h2>
+        <div class="s-sub">เหตุผล: จ่ายอยู่แล้วใน license · console เดียวกับ Windows · Conditional Access ผูกตรง · ตัวเลือกด้านล่างเก็บไว้พิจารณาเมื่อมีความจำเป็นเฉพาะ</div>
         <div class="s-body">
           <div class="tbl-wrap">
             <table class="tbl-s">
               <tr><th style="width:300px">ตัวเลือก</th><th style="width:250px" class="ctr">ราคา</th><th style="width:330px">จุดเด่น</th><th>ข้อจำกัด</th></tr>
-              <tr><td><b>Microsoft Intune</b> <span class="pill green">แนะนำเริ่มต้น</span></td><td class="ctr">รวมอยู่ใน Premium / E3-E5<br><span class="mut">เพิ่ม ฿0</span></td><td>console เดียวกับ Windows · Conditional Access ผูกตรง · Defender/Purview ในชุดเดียว</td><td>deep Apple-specific feature (bootstrap, patch policy ละเอียด) น้อยกว่า Jamf</td></tr>
-              <tr><td><b>Jamf Pro</b></td><td class="ctr">เริ่ม <b>$4</b>/device/mo<br>bundle macOS $12.50 (Pro+Connect+Protect)</td><td>มาตรฐานฝั่ง Apple enterprise · script/extension attribute ยืดหยุ่น · ใช้คู่กับ Entra ได้</td><td>ค่าใช้จ่ายเพิ่มต่อเครื่อง · console คนละชุดกับ Microsoft</td></tr>
+              <tr><td><b>Microsoft Intune</b> <span class="pill green">✓ เลือกใช้</span></td><td class="ctr">รวมอยู่ใน Premium / E3-E5<br><span class="mut">เพิ่ม ฿0</span></td><td>console เดียวกับ Windows · Conditional Access ผูกตรง · Defender/Purview ในชุดเดียว · บริหารคู่กับ Windows fleet ที่มีอยู่</td><td>deep Apple-specific feature (bootstrap, patch policy ละเอียด) น้อยกว่า Jamf — แก้ด้วย custom profile / script เมื่อจำเป็น</td></tr>
+              <tr><td><b>Jamf Pro</b> <span class="pill warn">สำรอง · ยังไม่ใช้</span></td><td class="ctr">เริ่ม <b>$4</b>/device/mo<br>bundle macOS $12.50 (Pro+Connect+Protect)</td><td>มาตรฐานฝั่ง Apple enterprise · script/extension attribute ยืดหยุ่น · ใช้คู่กับ Entra ได้</td><td>ค่าใช้จ่ายเพิ่มต่อเครื่อง · console คนละชุดกับ Microsoft</td></tr>
               <tr><td><b>Iru</b> (เดิมชื่อ Kandji)</td><td class="ctr">ใบเสนอราคา<br><span class="mut">ไม่เปิดราคาสาธารณะ</span></td><td>โมดูลแยกเลือก (endpoint mgmt, EDR, identity, compliance) · ใช้ง่าย</td><td>ต้องขอ quote · ผูกกับ vendor ใหม่</td></tr>
               <tr><td><b>Mosyle</b></td><td class="ctr">ใบเสนอราคา<br><span class="mut">ไม่พบราคาสาธารณะ</span></td><td>ราคาแข่งขันได้สำหรับ SMB · เน้น Apple โดยเฉพาะ</td><td>ไม่ผูกกับ ecosystem Microsoft · ต้องขอ quote</td></tr>
             </table>
@@ -573,7 +574,7 @@ body.edit-active .manage-bar{display:flex}
               <tr><td><b>AppleCare for Business</b> (≈10%)</td><td class="num-c">฿112,250</td><td class="num-c">—</td><td>ประมาณการ · จริงตาม quote</td></tr>
               <tr><td><b>M365 Business Premium</b> 25 users</td><td class="num-c">—</td><td class="num-c">฿340,800</td><td>ซื้อ<b>เพิ่ม</b>เฉพาะเมื่อยังไม่มี</td></tr>
               <tr><td><b>MDM: Intune</b></td><td class="num-c">—</td><td class="num-c">฿0</td><td>รวมอยู่ใน Premium/E3/E5</td></tr>
-              <tr><td><i>ทางเลือก:</i> Jamf Pro</td><td class="num-c">—</td><td class="num-c">฿42,600</td><td>$4 × 25 × 12 เดือน</td></tr>
+
             </table>
           </div>
           <div class="rulebox"><span class="lk">📊</span><span>ถ้าองค์กรมี Business Premium / E3 อยู่แล้ว → ต้นทุนเพิ่มจริง ≈ <b>฿1.23 ล้าน (ครั้งเดียว)</b> · license เพิ่ม ฿0 · MDM เพิ่ม ฿0 — ยังไม่รวมค่าตั้งค่าภายใน ~2–4 สัปดาห์</span></div>
@@ -621,7 +622,7 @@ body.edit-active .manage-bar{display:flex}
         <div class="s-sub">เริ่มเล็ก วัดผล แล้วขยาย — ไม่ต้องเปลี่ยนทั้งองค์กรในครั้งเดียว</div>
         <div class="s-body">
           <div class="cards3">
-            <div class="pcard"><span class="pill">P0 · 2 สัปดาห์</span><h3>สำรวจ &amp; ออกแบบ</h3><p>ทำ inventory แอป/ระบบ · ระบุ Windows-only app · ตรวจ license ที่มีอยู่ · เลือก MDM และเขียน standard build</p></div>
+            <div class="pcard"><span class="pill">P0 · 2 สัปดาห์</span><h3>สำรวจ &amp; ออกแบบ</h3><p>ทำ inventory แอป/ระบบ · ระบุ Windows-only app · ตรวจ license ที่มีอยู่ · ตั้งค่า Microsoft Intune และเขียน standard build</p></div>
             <div class="pcard"><span class="pill">P1 · 4 สัปดาห์</span><h3>Pilot 5–10 เครื่อง</h3><p>ตั้ง ABM + Intune + Entra Join + Conditional Access · ทดสอบแอป/ปริ้น/ไฟล์จริง · เก็บ feedback รายสัปดาห์</p></div>
             <div class="pcard"><span class="pill">P2 · 4 สัปดาห์</span><h3>ทำเป็นมาตรฐาน</h3><p>นิยาม standard build ตาม role · นโยบายเบิก/คืน · helpdesk runbook · เริ่มย้ายไฟล์ขึ้น SharePoint</p></div>
           </div>
@@ -650,7 +651,7 @@ body.edit-active .manage-bar{display:flex}
               <div class="ck"><span class="box"></span>สมัคร Apple Business Manager + เพิ่มตัวแทนจำหน่าย</div>
               <div class="ck"><span class="box"></span>ตรวจ license ปัจจุบันว่ามี Intune หรือยัง (Premium / E3)</div>
               <div class="ck"><span class="box"></span>ทำ inventory แอปและระบบที่ผูก Windows</div>
-              <div class="ck"><span class="box"></span>เลือก MDM (เริ่มจาก Intune) และร่าง policy baseline</div>
+              <div class="ck"><span class="box"></span>ตั้งค่า Microsoft Intune และร่าง policy baseline</div>
               <div class="ck"><span class="box"></span>ตั้ง Conditional Access: เครื่องต้อง compliance เท่านั้น</div>
             </div>
             <div class="checklist">

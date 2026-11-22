@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Bringing macOS into a Microsoft-centric Organization — Requirements · Architecture · Cost</title>
+<style>
+:root{
+  --bg-slide:#FFFFFF; --bg-title:#0f172a; --bg-title-end:#1e3a5f;
+  --accent-teal:#2563eb; --accent-teal-light:#fbbf24;
+  --text-primary:#0f172a; --text-secondary:#475569; --text-muted:#64748b;
+  --text-footer:#BBBBBB; --border-light:#e2e8f0; --bg-donut-track:#dbeafe;
+  --ink:#0f172a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Noto Sans Thai','Inter','Leelawadee UI','Segoe UI',system-ui,-apple-system,sans-serif;color:var(--text-primary);background:#f1f5f9}
+img{max-width:100%}
+a{color:var(--accent-teal)}
+
+/* ================= TOP NAV ================= */
+.topnav{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:18px;padding:12px 28px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:var(--ink)}
+.brand .sq{width:22px;height:22px;background:linear-gradient(135deg,var(--bg-title),var(--accent-teal));border-radius:4px;display:inline-block}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap;margin-left:14px}
+.nav-link{border:0;background:none;font-size:14.5px;color:#445;padding:8px 13px;border-radius:8px;cursor:pointer;font-weight:600}
+.nav-link:hover{background:#dbeafe;color:var(--bg-title)}
+.nav-link.active{background:var(--bg-title);color:#fff}
+.nav-actions{margin-left:auto;display:flex;gap:10px}
+.btn{border:0;border-radius:9px;padding:10px 18px;font-size:14.5px;font-weight:700;cursor:pointer}
+.btn-primary{background:var(--bg-title);color:#fff}
+.btn-primary:hover{background:var(--accent-teal)}
+.btn-ghost{background:#fff;color:var(--bg-title);border:1.5px solid var(--accent-teal)}
+.btn-ghost:hover{background:#dbeafe}
+
+/* ================= WEBSITE ================= */
+.hero{background:linear-gradient(135deg,#0B132A 0%,#0F172A 55%,#1E3A5F 100%);color:#fff;padding:88px 40px 76px;text-align:center}
+.hero .kicker{letter-spacing:4px;font-size:13.5px;text-transform:uppercase;color:var(--accent-teal-light);font-weight:700}
+.hero h1{font-size:54px;line-height:1.15;margin:16px auto 14px;max-width:1100px;font-weight:800}
+.hero p{font-size:19.5px;color:#cbd5e1;max-width:900px;margin:0 auto 30px;line-height:1.6}
+.hero .meta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);padding:8px 16px;border-radius:999px;font-size:14.5px}
+.sec{max-width:1180px;margin:0 auto;padding:64px 32px}
+.sec h2{font-size:36px;margin:0 0 8px;color:var(--ink);font-weight:800}
+.sec .sub{color:var(--text-secondary);font-size:17px;margin:0 0 30px}
+.card-grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.wcard{background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:22px 22px;box-shadow:0 2px 10px rgba(15,23,42,.05)}
+.wcard h3{margin:0 0 8px;font-size:19px;color:var(--bg-title)}
+.wcard p,.wcard li{font-size:15.5px;color:var(--text-secondary);line-height:1.65}
+.wcard ul{margin:8px 0 0;padding-left:20px}
+.num{display:inline-flex;width:34px;height:34px;border-radius:9px;background:var(--bg-donut-track);color:var(--bg-title);font-weight:800;align-items:center;justify-content:center;margin-bottom:10px}
+.tbl{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(15,23,42,.06);font-size:15.5px}
+.tbl th{background:var(--bg-title);color:#fff;text-align:left;padding:13px 15px;font-weight:700;font-size:14.5px}
+.tbl td{padding:11px 15px;border-bottom:1px solid var(--border-light);color:#334155;vertical-align:top}
+.tbl tr:nth-child(even) td{background:#f8fafc}
+.tbl .ok{color:#16a34a;font-weight:800}
+.tbl .no{color:#dc2626;font-weight:800}
+.tbl .mut{color:#94a3b8;font-weight:800}
+.code{font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;background:#0f172a;color:#93c5fd;padding:2px 7px;border-radius:6px;font-size:13.5px}
+.note{background:#fffbea;border-left:4px solid #f59e0b;padding:14px 18px;border-radius:0 10px 10px 0;font-size:15.5px;color:#7c5e10;line-height:1.6}
+.sec-foot{border-top:1px solid var(--border-light);margin-top:54px;padding-top:22px;color:var(--text-muted);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.sec-foot a{color:#64748b;text-decoration:none}
+.diagram-wrap{background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:20px;overflow:hidden;box-shadow:0 2px 10px rgba(15,23,42,.06)}
+.diagram-wrap svg{width:100%;height:auto;display:block}
+
+/* ================= PRESENTATION ================= */
+#presOverlay{position:fixed;inset:0;background:#0b132a;z-index:1000;display:none}
+#presOverlay.active{display:block}
+#slideContainer{position:absolute;inset:0;overflow:hidden}
+.pres-slide{position:absolute !important;width:1920px;height:1080px;transform-origin:top left;background:var(--bg-slide);display:none !important;flex-direction:column;overflow:hidden;color:var(--text-primary)}
+.pres-slide.active{display:flex !important}
+.s-inner{flex:1;min-height:0;padding:52px 96px 26px;display:flex;flex-direction:column}
+.s-top{height:6px;background:linear-gradient(90deg,var(--bg-title),var(--accent-teal));flex:none}
+.s-head{display:flex;align-items:center;justify-content:space-between;padding:16px 96px 0;flex:none}
+.s-head .lhs{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:700;color:#475569;letter-spacing:.5px}
+.s-head .sq{width:20px;height:20px;background:linear-gradient(135deg,var(--bg-title),var(--accent-teal));border-radius:4px}
+.s-head .rhs{font-size:13.5px;color:var(--text-muted)}
+.s-label{font-size:15px;letter-spacing:3.5px;text-transform:uppercase;color:var(--accent-teal);font-weight:800;margin-bottom:10px}
+.s-title{font-size:46px;font-weight:800;color:var(--ink);margin:0 0 6px;line-height:1.18}
+.s-sub{font-size:19px;color:var(--text-secondary);margin:2px 0 20px;line-height:1.5}
+.s-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:16px}
+.s-foot{flex:none;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border-light);margin:0 96px;padding:12px 0 14px;font-size:14px;color:var(--text-footer)}
+.s-foot .pg{font-weight:800;color:#64748b}
+
+/* title slide */
+.slide-title{background:linear-gradient(135deg,#0B132A 0%,#0F172A 55%,#1E3A5F 100%);color:#fff}
+.slide-title .s-inner{justify-content:center;padding:90px 120px}
+.slide-title .kicker{letter-spacing:5px;font-size:16px;text-transform:uppercase;color:var(--accent-teal-light);font-weight:800}
+.slide-title h1{font-size:80px;line-height:1.1;margin:22px 0 20px;font-weight:800;max-width:1500px}
+.slide-title .lead{font-size:26px;color:#cbd5e1;max-width:1350px;line-height:1.55;margin:0 0 34px}
+.slide-title .tmeta{display:flex;gap:14px;flex-wrap:wrap}
+.slide-title .chip{font-size:16.5px;padding:10px 20px}
+.slide-title .conf{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.22);padding:14px 120px;font-size:14px;color:#cbd5e1;display:flex;justify-content:space-between}
+
+/* layout helpers inside slides */
+.row{display:flex;gap:26px;min-height:0}
+.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.steps{display:flex;flex-direction:column;gap:13px}
+.step{display:flex;gap:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px 18px;align-items:flex-start}
+.step .n{flex:none;width:34px;height:34px;border-radius:9px;background:var(--bg-title);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:16.5px}
+.step .tx{font-size:17.5px;line-height:1.5;color:#25364a}
+.step .tx b{color:var(--bg-title)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cards2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.pcard{background:#fff;border:1px solid var(--border-light);border-radius:14px;padding:20px 24px;box-shadow:0 3px 12px rgba(15,23,42,.06);display:flex;flex-direction:column;gap:8px}
+.pcard h3{margin:0;font-size:22px;color:var(--bg-title);font-weight:800}
+.pcard p{margin:0;font-size:16.5px;color:var(--text-secondary);line-height:1.6}
+.pcard .ic{font-size:26px}
+.pcard .big{font-size:40px;font-weight:800;color:var(--accent-teal);line-height:1.15}
+.rulebox{background:linear-gradient(120deg,#0f172a,#1e3a5f);color:#f1f5f9;border-radius:14px;padding:20px 26px;font-size:21px;line-height:1.55;display:flex;gap:16px;align-items:center}
+.rulebox .lk{font-size:30px}
+.tbl-wrap{background:#fff;border:1px solid var(--border-light);border-radius:14px;overflow:hidden;box-shadow:0 3px 12px rgba(15,23,42,.06)}
+.tbl-s{width:100%;border-collapse:collapse;font-size:16.5px}
+.tbl-s th{background:var(--bg-title);color:#fff;text-align:left;padding:12px 18px;font-weight:700;font-size:16px}
+.tbl-s td{padding:10px 18px;border-bottom:1px solid var(--border-light);color:#334155;vertical-align:middle}
+.tbl-s tr:last-child td{border-bottom:0}
+.tbl-s tr:nth-child(even) td{background:#f8fafc}
+.tbl-s .ok{color:#16a34a;font-weight:800}
+.tbl-s .no{color:#dc2626;font-weight:800}
+.tbl-s .mut{color:#b0b8c1;font-weight:800}
+.tbl-s .ctr{text-align:center}
+.tbl-s .num-c{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:#0f172a}
+.small-note{font-size:15.5px;color:#7d8b99;line-height:1.55}
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:14.5px;font-weight:800;background:var(--bg-donut-track);color:var(--bg-title);margin-right:6px}
+.pill.warn{background:#fff3d6;color:#a16207}
+.pill.red{background:#fde8e8;color:#b91c1c}
+.pill.green{background:#ecfdf5;color:#16a34a}
+.gcols{display:grid;grid-template-columns:1fr 1fr;gap:24px;min-height:0}
+.gcols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;min-height:0}
+.chain{background:#0f172a;border-radius:12px;padding:16px 20px;color:#93c5fd;font-family:ui-monospace,Consolas,monospace;font-size:16px;line-height:1.75}
+.chain b{color:#fbbf24}
+.checklist{display:flex;flex-direction:column;gap:12px}
+.ck{display:flex;gap:14px;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:13px 18px;font-size:19px;color:#25364a}
+.ck .box{flex:none;width:26px;height:26px;border-radius:7px;border:2.5px solid var(--accent-teal);background:#fff}
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.dd{border-radius:14px;padding:24px 26px;box-shadow:0 3px 12px rgba(15,23,42,.06)}
+.dd.do{background:#ecfdf5;border:1px solid #a7f3d0}
+.dd.dont{background:#fef2f2;border:1px solid #fecaca}
+.dd h3{margin:0 0 12px;font-size:24px}
+.dd.do h3{color:#16a34a}
+.dd.dont h3{color:#b91c1c}
+.dd ul{margin:0;padding-left:24px;display:flex;flex-direction:column;gap:9px}
+.dd li{font-size:18px;line-height:1.5;color:#334155}
+.pit{display:flex;gap:14px;background:#fff;border:1px solid var(--border-light);border-left:5px solid #f59e0b;border-radius:0 12px 12px 0;padding:14px 20px;box-shadow:0 2px 8px rgba(15,23,42,.05)}
+.pit .ic{font-size:22px;flex:none}
+.pit .tx{font-size:17px;line-height:1.55;color:#334155}
+.pit .tx b{color:var(--bg-title)}
+.slide-diag{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;min-width:0}
+.slide-diag svg{max-height:640px;width:100%;height:auto;min-width:0}
+
+/* controls */
+.pres-controls{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;gap:10px;align-items:center;background:rgba(11,19,42,.94);border:1px solid rgba(255,255,255,.14);padding:9px 14px;border-radius:14px;z-index:1010}
+.pres-controls button{border:0;background:rgba(255,255,255,.12);color:#fff;font-size:15px;font-weight:700;padding:9px 16px;border-radius:9px;cursor:pointer}
+.pres-controls button:hover{background:var(--accent-teal)}
+.pres-controls .counter{color:#cfe9e1;font-size:15px;font-weight:700;min-width:74px;text-align:center}
+
+/* edit mode */
+#editBar{position:fixed;left:0;right:0;top:0;background:#0f172a;color:#fff;display:none;align-items:center;gap:12px;padding:10px 20px;z-index:1200}
+body.edit-active #editBar{display:flex}
+#editBar .badge{background:#f59e0b;color:#111;font-weight:800;padding:5px 12px;border-radius:7px;font-size:14px}
+#editBar button{border:0;background:#1e293b;color:#fff;font-weight:700;font-size:14px;padding:8px 14px;border-radius:8px;cursor:pointer}
+#editBar button:hover{background:var(--accent-teal)}
+.manage-bar{position:absolute;top:10px;right:14px;display:none;gap:6px;z-index:60}
+body.edit-active .manage-bar{display:flex}
+.manage-bar button{border:0;background:rgba(15,23,42,.82);color:#fff;font-size:16px;padding:6px 11px;border-radius:8px;cursor:pointer}
+[contenteditable="true"]{outline:2px dashed #f59e0b;outline-offset:3px;border-radius:4px}
+@media (max-width:900px){
+  .g3,.g4,.g2{grid-template-columns:1fr}
+  .hero h1{font-size:34px}
+  .sec h2{font-size:28px}
+  .topnav{flex-wrap:wrap}
+  .nav-actions{margin-left:0}
+  .tbl-wrap{overflow-x:auto}
+  .tbl{min-width:640px}
+}
+</style>
+</head>
+<body>
+
+<!-- ======================= TOP NAV ======================= -->
+<nav class="topnav">
+  <div class="brand"><span class="sq"></span> macOS × Microsoft 365</div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showSection('overview')">Overview</button>
+    <button class="nav-link" onclick="showSection('requirements')">Requirements</button>
+    <button class="nav-link" onclick="showSection('architecture')">Architecture</button>
+    <button class="nav-link" onclick="showSection('cost')">Cost</button>
+    <button class="nav-link" onclick="showSection('roadmap')">Roadmap &amp; Risks</button>
+  </div>
+  <div class="nav-actions">
+    <a class="btn btn-ghost" href="index.html" style="text-decoration:none">TH</a>
+    <button class="btn btn-ghost" onclick="toggleEditMode()">Edit Mode</button>
+    <button class="btn btn-primary" onclick="enterPresentation()">▶ Presentation Mode</button>
+  </div>
+</nav>
+
+<!-- ======================= WEBSITE ======================= -->
+<header class="hero">
+  <div class="kicker">IT Architecture Proposal · macOS Adoption</div>
+  <h1>Bringing macOS into an organization<br>where Microsoft is the core software</h1>
+  <p>What you need, a reference architecture, and preliminary costs — starting from Identity (Entra ID) + Device management (Intune/ABM) as the core, then connecting apps, data, and security</p>
+  <div class="meta">
+    <span class="chip">Apple Business Manager (free)</span>
+    <span class="chip">Microsoft Intune selected (included in license)</span>
+    <span class="chip">MacBook Air from ฿44,900</span>
+    <span class="chip">Prices as of 23 Nov 2026</span>
+  </div>
+</header>
+
+<section class="sec" id="sec-overview">
+  <h2>Overview: macOS in a Microsoft shop works</h2>
+  <p class="sub">Mac is no longer "separate" from Microsoft — M365 apps ship fully on macOS, and Intune/Entra ID manage Macs on par with Windows</p>
+  <div class="card-grid g4">
+    <div class="wcard"><div class="num">1</div><h3>One identity</h3><p>Mac joins Microsoft Entra ID (Entra Join / Platform SSO) with the same accounts, Conditional Access and MFA as Windows</p></div>
+    <div class="wcard"><div class="num">2</div><h3>MDM built into macOS</h3><p>Apple Business Manager (free) + Automated Device Enrollment → devices bind to Microsoft Intune from first boot</p></div>
+    <div class="wcard"><div class="num">3</div><h3>Full app suite</h3><p>Word / Excel / Outlook / Teams / OneNote for Mac run on the same license as Windows (Microsoft 365 Standard and above)</p></div>
+    <div class="wcard"><div class="num">4</div><h3>Low incremental cost</h3><p>If you already have Microsoft 365 Business Premium / E3 → license and Intune add ฿0 (you pay only for hardware)</p></div>
+  </div>
+  <div class="note" style="margin-top:26px">💡 All prices in this document were pulled from official pages (apple.com/th, microsoft.com, jamf.com) on 23 November 2026 — Microsoft prices are USD per month, billed annually, and may change with promotions/region</div>
+</section>
+
+<section class="sec" id="sec-requirements">
+  <h2>What you need (Requirements)</h2>
+  <p class="sub">Six areas to prepare before handing out Macs — ordered by criticality</p>
+  <div class="card-grid g3">
+    <div class="wcard"><div class="num">1</div><h3>Identity &amp; Access</h3><ul><li>Microsoft Entra ID (Azure AD) as the primary IdP</li><li>Platform SSO / passwordless (Touch ID)</li><li>Conditional Access: only compliant devices</li></ul></div>
+    <div class="wcard"><div class="num">2</div><h3>Device Management</h3><ul><li>Apple Business Manager (free) + ADE</li><li>MDM: <b>Microsoft Intune</b> (selected — already included in the license)</li><li>FileVault escrow (recovery key stored in MDM)</li></ul></div>
+    <div class="wcard"><div class="num">3</div><h3>Licensing</h3><ul><li>M365 Business Premium / E3 and above (includes Intune)</li><li>Microsoft 365 apps for Mac (Standard and above)</li><li>Defender for Endpoint on macOS</li></ul></div>
+    <div class="wcard"><div class="num">4</div><h3>Apps &amp; Compatibility</h3><ul><li>Inventory LOB / internal web apps tied to IE/ActiveX</li><li>Windows-only apps: VM (UTM/Parallels) as fallback</li><li>Adobe, Teams, Office, browsers — run natively</li></ul></div>
+    <div class="wcard"><div class="num">5</div><h3>Network, Print, File</h3><ul><li>Wi-Fi/VPN via profiles pushed by MDM</li><li>Printing: AirPrint or Universal Print (replacing the print server)</li><li>Files: SharePoint/OneDrive instead of SMB shares</li></ul></div>
+    <div class="wcard"><div class="num">6</div><h3>Support &amp; Skills</h3><ul><li>Helpdesk must know macOS basics + the MDM console</li><li>Spare stock / AppleCare for Business</li><li>Policy: who gets a Mac (role-based) + BYO rules</li></ul></div>
+  </div>
+</section>
+
+<section class="sec" id="sec-architecture">
+  <h2>Reference architecture</h2>
+  <p class="sub">Main flow: buy devices → bind ABM → MDM manages → Entra ID authenticates → use M365 + store data in the cloud (on-prem stays connected hybrid or migrates)</p>
+  <div class="diagram-wrap" id="archHost">
+    <svg viewBox="0 0 1560 640" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans Thai',Inter,sans-serif">
+      <defs>
+        <marker id="arrK" markerWidth="11" markerHeight="11" refX="7" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 z" fill="#0f172a"/>
+        </marker>
+        <marker id="arrB" markerWidth="11" markerHeight="11" refX="7" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 z" fill="#2563eb"/>
+        </marker>
+      </defs>
+
+      <!-- layer 1: devices -->
+      <rect x="430" y="14" width="700" height="78" rx="12" fill="#0f172a"/>
+      <svg x="456" y="34" width="30" height="30" viewBox="0 0 24 24"><path fill="#ffffff" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
+      <text x="502" y="47" fill="#ffffff" font-size="24" font-weight="700">Users &amp; devices · MacBook Air / MacBook Pro</text>
+      <text x="502" y="74" fill="#94a3b8" font-size="17">macOS · FileVault (enabled automatically) · XProtect + Gatekeeper</text>
+      <line x1="780" y1="92" x2="780" y2="140" stroke="#0f172a" stroke-width="2.5" marker-end="url(#arrK)"/>
+      <text x="795" y="122" fill="#64748b" font-size="15">purchased via reseller / Apple Business, then enrolled</text>
+
+      <!-- layer 2: ABM + MDM -->
+      <rect x="60" y="144" width="640" height="86" rx="12" fill="#eef4ff" stroke="#2563eb" stroke-width="2"/>
+      <rect x="86" y="166" width="42" height="42" rx="9" fill="#2563eb"/>
+      <path d="M107 176 l14 8 v10 c0 8 -6 14 -14 17 c-8 -3 -14 -9 -14 -17 v-10 z" fill="#ffffff"/>
+      <text x="146" y="186" fill="#0f172a" font-size="23" font-weight="700">Apple Business Manager (free)</text>
+      <text x="146" y="213" fill="#475569" font-size="16.5">Automated Device Enrollment (ADE/DEP) · device binds to MDM automatically at unboxing</text>
+
+      <line x1="706" y1="187" x2="760" y2="187" stroke="#0f172a" stroke-width="2.5" marker-end="url(#arrK)"/>
+
+      <rect x="770" y="144" width="730" height="86" rx="12" fill="#eef4ff" stroke="#2563eb" stroke-width="2"/>
+      <rect x="796" y="166" width="42" height="42" rx="9" fill="#0f172a"/>
+      <rect x="806" y="176" width="22" height="22" rx="4" fill="#f35325"/>
+      <rect x="819" y="176" width="9" height="9" fill="#81bc06"/>
+      <rect x="819" y="189" width="9" height="9" fill="#05a6f0"/>
+      <rect x="806" y="189" width="9" height="9" fill="#ffba08"/>
+      <text x="856" y="186" fill="#0f172a" font-size="23" font-weight="700">MDM: Microsoft Intune — selected (already in license)</text>
+      <text x="856" y="213" fill="#475569" font-size="16.5">Wi-Fi/VPN profiles · app catalog · compliance · FileVault escrow · remote wipe/lock</text>
+
+      <line x1="1135" y1="230" x2="1135" y2="278" stroke="#0f172a" stroke-width="2.5" marker-end="url(#arrK)"/>
+
+      <!-- layer 3: Entra ID -->
+      <rect x="430" y="282" width="700" height="92" rx="12" fill="#0f172a"/>
+      <rect x="458" y="310" width="36" height="36" rx="7" fill="#ffffff"/>
+      <rect x="462" y="314" width="14" height="14" fill="#f35325"/>
+      <rect x="478" y="314" width="12" height="14" fill="#81bc06"/>
+      <rect x="462" y="330" width="14" height="12" fill="#05a6f0"/>
+      <rect x="478" y="330" width="12" height="12" fill="#ffba08"/>
+      <text x="512" y="322" fill="#ffffff" font-size="24" font-weight="700">Microsoft Entra ID — one account for the whole company</text>
+      <text x="512" y="350" fill="#94a3b8" font-size="17">Entra Join (cloud) / hybrid with existing AD · Platform SSO + Touch ID · MFA · Conditional Access</text>
+
+      <line x1="780" y1="374" x2="780" y2="422" stroke="#0f172a" stroke-width="2.5" marker-end="url(#arrK)"/>
+
+      <!-- layer 4: apps / data / security -->
+      <rect x="250" y="426" width="420" height="118" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+      <rect x="250" y="426" width="420" height="8" rx="4" fill="#2563eb"/>
+      <text x="276" y="474" fill="#0f172a" font-size="22" font-weight="700">Microsoft 365 apps on Mac</text>
+      <text x="276" y="504" fill="#475569" font-size="16.5">Word · Excel · Outlook · Teams</text>
+      <text x="276" y="528" fill="#475569" font-size="16.5">same license as Windows</text>
+
+      <rect x="700" y="426" width="420" height="118" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+      <rect x="700" y="426" width="420" height="8" rx="4" fill="#0f172a"/>
+      <text x="726" y="474" fill="#0f172a" font-size="22" font-weight="700">Data &amp; collaboration</text>
+      <text x="726" y="504" fill="#475569" font-size="16.5">OneDrive · SharePoint · Teams</text>
+      <text x="726" y="528" fill="#475569" font-size="16.5">(replacing legacy SMB shares — sync instead of mount)</text>
+
+      <rect x="1150" y="426" width="350" height="118" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+      <rect x="1150" y="426" width="350" height="8" rx="4" fill="#16a34a"/>
+      <text x="1176" y="474" fill="#0f172a" font-size="22" font-weight="700">Security</text>
+      <text x="1176" y="504" fill="#475569" font-size="16.5">Defender for Endpoint (Mac)</text>
+      <text x="1176" y="528" fill="#475569" font-size="16.5">Purview DLP · FileVault escrow</text>
+
+      <!-- on-prem side -->
+      <rect x="30" y="426" width="190" height="118" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" stroke-dasharray="7 6"/>
+      <text x="52" y="466" fill="#475569" font-size="19" font-weight="700">Legacy on-prem</text>
+      <text x="52" y="494" fill="#64748b" font-size="15.5">AD · File/Print server</text>
+      <text x="52" y="518" fill="#64748b" font-size="15.5">→ hybrid or move to cloud</text>
+      <path d="M120 424 C 120 360, 300 350, 424 344" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#arrB)"/>
+      <path d="M222 470 L 262 470" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#arrB)"/>
+
+      <!-- footer note -->
+      <text x="30" y="600" fill="#64748b" font-size="16">Dashed lines = existing integrations, supported both hybrid (Entra hybrid join / Kerberos SSO) and full cloud</text>
+      <text x="30" y="628" fill="#64748b" font-size="16">Every policy (Wi-Fi, VPN, app, encryption, compliance) is issued from a single MDM — no Windows-style GPO</text>
+    </svg>
+  </div>
+  <div class="sec-foot"><span>macOS in a Microsoft organization · Reference architecture</span><span>Click ▶ Presentation Mode for the full slide deck</span></div>
+</section>
+
+<section class="sec" id="sec-cost">
+  <h2>Preliminary cost (sample: 25 devices)</h2>
+  <p class="sub">Assumptions: 25 users · MacBook Air 13" · FX 35.5 THB/USD · Microsoft prices billed annually, as of 23/11/2026</p>
+  <div class="tbl-wrap">
+    <table class="tbl-s">
+      <tr><th style="width:420px">Item</th><th style="width:200px" class="ctr">One-time</th><th style="width:200px" class="ctr">Per year</th><th>Notes</th></tr>
+      <tr><td><b>MacBook Air 13" M5 × 25</b></td><td class="num-c">฿1,122,500</td><td class="num-c">—</td><td>฿44,900 per unit (apple.com/th)</td></tr>
+      <tr><td><b>AppleCare for Business</b> (~10%)</td><td class="num-c">฿112,250</td><td class="num-c">—</td><td>Estimate — actual per reseller quote</td></tr>
+      <tr><td><b>M365 Business Premium, 25 users</b></td><td class="num-c">—</td><td class="num-c">฿340,800</td><td>Includes Intune + Entra ID P1 + Defender — <b>bought only if not already owned</b></td></tr>
+      <tr><td><b>MDM: Microsoft Intune</b> <span class="pill green">selected</span></td><td class="num-c">—</td><td class="num-c">฿0</td><td>Included in Premium / E3 / E5 already</td></tr>
+      <tr><td><b>Setup / migration</b> (in-house IT)</td><td class="num-c" colspan="2" style="text-align:center">approx. 2–4 weeks · 2 IT staff + 5–10 device pilot</td><td>ABM, Intune policy, Conditional Access, pilot</td></tr>
+    </table>
+  </div>
+  <div class="note" style="margin-top:24px">💡 Bottom line: if the organization already has Microsoft 365 Business Premium (or E3/E5) → <b>extra license ฿0 · extra MDM ฿0</b> — the real cost is "hardware + AppleCare + setup time" · upgrading Standard → Premium costs ฿90,525/year (25 users)</div>
+  <div class="sec-foot"><span>macOS in a Microsoft organization · Cost</span><span>Prices as of 23/11/2026 · subject to promotions</span></div>
+</section>
+
+<section class="sec" id="sec-roadmap">
+  <h2>Pilot plan &amp; risks</h2>
+  <p class="sub">Start small, measure, then scale — 4 phases in ~3 months</p>
+  <div class="card-grid g4">
+    <div class="wcard"><div class="num">P0</div><h3>Assess (2 weeks)</h3><p>Inventory apps/systems, identify Windows-only apps, check existing licenses, set up Microsoft Intune</p></div>
+    <div class="wcard"><div class="num">P1</div><h3>Pilot (4 weeks)</h3><p>5–10 devices → ABM + Intune + Entra Join + Conditional Access, collect feedback</p></div>
+    <div class="wcard"><div class="num">P2</div><h3>Standardize (4 weeks)</h3><p>Write the standard build, issue/return policy, helpdesk runbook, move files to SharePoint</p></div>
+    <div class="wcard"><div class="num">P3</div><h3>Scale (ongoing)</h3><p>Roll out by role, review real TCO every 6 months, re-check Windows-only apps</p></div>
+  </div>
+  <div class="card-grid g2" style="margin-top:26px">
+    <div class="wcard"><h3>⚠️ Key risks</h3><ul><li><b>Windows-only apps</b> (internal tools, ActiveX, banking plugins) → test / find alternatives</li><li><b>Legacy printers and file shares</b> → move to AirPrint/Universal Print and SharePoint</li><li><b>Support team</b> must learn MDM + macOS</li></ul></div>
+    <div class="wcard"><h3>✅ Non-issues</h3><ul><li>Accounts/MFA/Conditional Access — same Entra ID tenant</li><li>Office/Teams/Outlook — fully available on Mac</li><li>Antivirus — Defender for Endpoint supports macOS</li><li>MDM — built into macOS, no foreign agent required</li></ul></div>
+  </div>
+  <div class="sec-foot">
+    <span>Sources: apple.com/th · support.apple.com/guide/business · microsoft.com/microsoft-365 · learn.microsoft.com/intune · jamf.com/pricing · iru.com/pricing</span>
+    <span>Data as of 23/11/2026</span>
+  </div>
+</section>
+
+<!-- ======================= PRESENTATION ======================= -->
+<div id="presOverlay" onclick="if(event.target===this)exitPresentation()">
+  <div id="slideContainer">
+
+    <!-- ========== 1 TITLE ========== -->
+    <div class="pres-slide slide-title">
+      <div class="s-inner">
+        <div class="kicker">IT Architecture Proposal</div>
+        <h1>Bringing macOS into a<br>Microsoft-centric organization</h1>
+        <div class="lead">Requirements · Reference architecture · Preliminary cost — starting from Entra ID + MDM as the core</div>
+        <div class="tmeta">
+          <span class="chip">Apple Business Manager (free)</span>
+          <span class="chip">MDM = Microsoft Intune</span>
+          <span class="chip">MacBook Air from ฿44,900</span>
+          <span class="chip">23 November 2026</span>
+        </div>
+      </div>
+      <div class="conf"><span>macOS × Microsoft 365</span><span>Prices as of 23/11/2026 · USD billed annually</span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 2 EXEC SUMMARY ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Overview</div></div>
+      <div class="s-inner">
+        <div class="s-label">Executive Summary</div>
+        <h2 class="s-title">It works — and costs less than you think</h2>
+        <div class="s-sub">Mac does not live outside Microsoft: one account, one license, one console</div>
+        <div class="s-body">
+          <div class="cards3">
+            <div class="pcard"><span class="ic">🔐</span><div class="big">1 IdP</div><h3>Entra ID as the core</h3><p>Mac uses Entra Join + Platform SSO (Touch ID) with the same MFA/Conditional Access as Windows</p></div>
+            <div class="pcard"><span class="ic">📱</span><div class="big">฿0</div><h3>No extra MDM cost</h3><p>Intune is already included in Business Premium / E3 / E5 — Microsoft Intune is the selected MDM</p></div>
+            <div class="pcard"><span class="ic">📦</span><div class="big">฿44,900</div><h3>Entry hardware price</h3><p>MacBook Air 13" M5 — you pay only for devices + AppleCare when licenses already exist</p></div>
+          </div>
+          <div class="rulebox"><span class="lk">🎯</span><span>Proposal: start with a 5–10 device pilot · ABM + Intune + Entra Join · move files to SharePoint · measure for 4 weeks before scaling</span></div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Overview</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 3 REQUIREMENTS ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Requirements</div></div>
+      <div class="s-inner">
+        <div class="s-label">Requirements</div>
+        <h2 class="s-title">Six things you must have</h2>
+        <div class="s-sub">Ordered by criticality — the first three are non-negotiable</div>
+        <div class="s-body">
+          <div class="cards3">
+            <div class="pcard"><h3>1 · Identity &amp; Access</h3><p>Entra ID as primary IdP · Platform SSO / passwordless · Conditional Access enforces compliant devices only</p></div>
+            <div class="pcard"><h3>2 · Device Management</h3><p>Apple Business Manager (free) + Automated Device Enrollment · MDM = <b>Microsoft Intune</b> (selected) · FileVault escrow</p></div>
+            <div class="pcard"><h3>3 · Licensing</h3><p>Microsoft 365 Business Premium / E3 and above (includes Intune) · M365 apps for Mac · Defender for Endpoint</p></div>
+            <div class="pcard"><h3>4 · Apps &amp; Compatibility</h3><p>Inventory LOB apps tied to Windows/ActiveX · VM (UTM/Parallels) as fallback for Windows-only apps</p></div>
+            <div class="pcard"><h3>5 · Network · Print · File</h3><p>Wi-Fi/VPN via MDM profiles · AirPrint / Universal Print · SharePoint/OneDrive instead of SMB shares</p></div>
+            <div class="pcard"><h3>6 · Support &amp; Skills</h3><p>Helpdesk knows macOS + the MDM console · AppleCare for Business · Mac issue policy by role</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Requirements</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 4 ARCHITECTURE ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Architecture</div></div>
+      <div class="s-inner">
+        <div class="s-label">Reference Architecture</div>
+        <h2 class="s-title">Reference architecture</h2>
+        <div class="s-sub">Buy devices → bind ABM → MDM manages → Entra ID authenticates → use M365 + store data in the cloud</div>
+        <div class="slide-diag" id="archSlideHost"></div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Architecture</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 5 IDENTITY ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Identity</div></div>
+      <div class="s-inner">
+        <div class="s-label">Identity &amp; Access</div>
+        <h2 class="s-title">Two ways for Mac to join Microsoft Entra ID</h2>
+        <div class="s-sub">Pick the one that matches your current AD — both use the same MFA and Conditional Access</div>
+        <div class="s-body">
+          <div class="gcols">
+            <div class="pcard"><span class="pill green">Recommended</span><h3>A · Entra Join (cloud-native)</h3><p>Users and devices live purely in Entra ID, no on-prem AD dependency<br><br>• Best for new teams / remote / BYO<br>• Platform SSO: sign in with Touch ID using the Entra account<br>• Simplest to configure, no legacy dependency</p></div>
+            <div class="pcard"><span class="pill warn">Alternative</span><h3>B · Hybrid with existing AD</h3><p>Device joins Entra but still authenticates against on-prem Active Directory<br><br>• Best where GPO/AD-auth systems still exist<br>• Entra hybrid join + Kerberos SSO extension<br>• Entra Connect sync must be maintained</p></div>
+          </div>
+          <div class="rulebox"><span class="lk">🛡️</span><span>Conditional Access is the single gate: "device must pass MDM compliance + MFA" to reach SharePoint/Teams/Email — identical behavior for Windows and Mac</span></div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Identity</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 6 LIFECYCLE ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Device Lifecycle</div></div>
+      <div class="s-inner">
+        <div class="s-label">Device Lifecycle</div>
+        <h2 class="s-title">Device lifecycle — automated by MDM</h2>
+        <div class="s-sub">Every step from unboxing to return is driven by policy issued from a single console</div>
+        <div class="s-body">
+          <div class="steps">
+            <div class="step"><div class="n">1</div><div class="tx"><b>Order + bind ABM</b> — buy through a reseller enrolled with Apple Business Manager; devices enter the organization automatically (no serial entry)</div></div>
+            <div class="step"><div class="n">2</div><div class="tx"><b>Power on → ADE</b> — Setup Assistant shows org-custom screens, enforces Entra Join + installs Wi-Fi/VPN profiles before use</div></div>
+            <div class="step"><div class="n">3</div><div class="tx"><b>Enroll in Microsoft Intune + baseline</b> — FileVault enabled automatically + key escrow, Defender installed, app catalog (Office/Teams/line-of-business)</div></div>
+            <div class="step"><div class="n">4</div><div class="tx"><b>Use + compliance</b> — Conditional Access checks daily: a device failing policy cannot reach corporate data</div></div>
+            <div class="step"><div class="n">5</div><div class="tx"><b>Repair / transfer / retire</b> — AppleCare for Business repairs via reseller · reassign devices through ABM · return = remote wipe</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Device Lifecycle</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 7 LICENSING ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Licensing</div></div>
+      <div class="s-inner">
+        <div class="s-label">Licensing</div>
+        <h2 class="s-title">Relevant licenses (official pricing)</h2>
+        <div class="s-sub">USD / user / month · billed annually · microsoft.com as of 23/11/2026 — pick the same tier as your Windows users</div>
+        <div class="s-body">
+          <div class="tbl-wrap">
+            <table class="tbl-s">
+              <tr><th style="width:400px">Plan</th><th style="width:160px" class="ctr">Price</th><th>Works on Mac / notes</th></tr>
+              <tr><td><b>Microsoft 365 Business Basic</b></td><td class="ctr">$7.00</td><td>Web + mobile only · <span class="mut">no Intune</span></td></tr>
+              <tr><td><b>Microsoft 365 Business Standard</b> (with Copilot)</td><td class="ctr">$23.50</td><td>Full Office desktop on Mac · <span class="mut">no Intune</span></td></tr>
+              <tr><td><b>Microsoft 365 Business Premium</b> (with Copilot)</td><td class="ctr">$32.00</td><td><span class="ok">✓ Includes Intune + Entra ID P1 + Defender + Purview</span> · up to 300 users</td></tr>
+              <tr><td><b>Microsoft 365 E3 / E5 / E7</b></td><td class="ctr">$39 / $60 / $99</td><td>Enterprise tier · includes Intune + Entra ID P1/P2</td></tr>
+              <tr><td><b>Microsoft Defender for Business</b> (standalone)</td><td class="ctr">$3.00</td><td>Endpoint protection for Mac/Windows (already in Premium)</td></tr>
+              <tr><td><b>Microsoft Intune Plan 1</b></td><td class="ctr">included in plans above</td><td>the MDM base service — sold separately only as a standalone SKU</td></tr>
+            </table>
+          </div>
+          <div class="small-note">US list prices, billed annually, as of 23/11/2026 · Thai/other-currency pricing and volume discounts require a reseller quote · "with Copilot" is the tier Microsoft currently sells</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Licensing</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 8 MDM CHOICE ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">MDM Choice</div></div>
+      <div class="s-inner">
+        <div class="s-label">MDM Choice</div>
+        <h2 class="s-title">Microsoft Intune selected as the primary MDM</h2>
+        <div class="s-sub">Why: already paid for · same console as Windows · Conditional Access binds directly · alternatives below are kept for reference only</div>
+        <div class="s-body">
+          <div class="tbl-wrap">
+            <table class="tbl-s">
+              <tr><th style="width:300px">Option</th><th style="width:250px" class="ctr">Price</th><th style="width:330px">Strengths</th><th>Limitations</th></tr>
+              <tr><td><b>Microsoft Intune</b> <span class="pill green">✓ selected</span></td><td class="ctr">included in Premium / E3-E5<br><span class="mut">฿0 extra</span></td><td>same console as Windows · Conditional Access binds directly · Defender/Purview in one suite · manages alongside your existing Windows fleet</td><td>fewer deep Apple-specific features (bootstrap, granular patch policy) than Jamf — cover with custom profiles / scripts when needed</td></tr>
+              <tr><td><b>Jamf Pro</b> <span class="pill warn">fallback · not in use</span></td><td class="ctr">from <b>$4</b>/device/mo<br>bundle macOS $12.50 (Pro+Connect+Protect)</td><td>Apple enterprise standard · flexible scripts/extension attributes · works alongside Entra</td><td>extra per-device cost · separate console from Microsoft</td></tr>
+              <tr><td><b>Iru</b> (formerly Kandji)</td><td class="ctr">quote-based<br><span class="mut">no public pricing</span></td><td>modular add-ons (endpoint mgmt, EDR, identity, compliance) · easy to use</td><td>requires a quote · newer vendor</td></tr>
+              <tr><td><b>Mosyle</b></td><td class="ctr">quote-based<br><span class="mut">no public pricing found</span></td><td>price-competitive for SMB · Apple-focused</td><td>outside the Microsoft ecosystem · requires a quote</td></tr>
+            </table>
+          </div>
+          <div class="small-note">Jamf pricing from schema.org on jamf.com/pricing (USD/device/month, 23/11/2026) · options 3–4 do not publish prices on their websites as of the check date</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · MDM Choice</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 9 HARDWARE ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Hardware</div></div>
+      <div class="s-inner">
+        <div class="s-label">Hardware</div>
+        <h2 class="s-title">Hardware prices (apple.com/th · 23/11/2026)</h2>
+        <div class="s-sub">Pick the model by role — not everyone needs a Pro</div>
+        <div class="s-body">
+          <div class="cards3">
+            <div class="pcard"><h3>MacBook Air 13"</h3><div class="big">฿44,900</div><p>Apple M5 · 10-core CPU<br>For general users (Office/Teams/web) — best value for the fleet</p></div>
+            <div class="pcard"><h3>MacBook Air 15"</h3><div class="big">฿54,900</div><p>Apple M5 · larger screen<br>For analysis/heavy documents without needing a GPU</p></div>
+            <div class="pcard"><h3>MacBook Pro 14"</h3><div class="big">฿104,900+</div><p>Apple M5 / M5 Pro<br>For dev, design, heavy workloads — top config around ฿174,900</p></div>
+          </div>
+          <div class="rulebox"><span class="lk">💡</span><span>AppleCare for Business is purchased per device (reseller pricing) · devices bought through the corporate channel appear in ABM automatically — avoid retail purchases followed by self-enrollment</span></div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Hardware</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 10 COST ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Cost</div></div>
+      <div class="s-inner">
+        <div class="s-label">Cost Model</div>
+        <h2 class="s-title">Preliminary cost · sample of 25 devices</h2>
+        <div class="s-sub">Assumptions: MacBook Air 13" · 25 users · 35.5 THB/USD · Microsoft prices in USD, billed annually</div>
+        <div class="s-body">
+          <div class="tbl-wrap">
+            <table class="tbl-s">
+              <tr><th style="width:520px">Item</th><th style="width:230px" class="ctr">One-time</th><th style="width:210px" class="ctr">Per year</th><th>Notes</th></tr>
+              <tr><td><b>MacBook Air 13" M5 × 25</b></td><td class="num-c">฿1,122,500</td><td class="num-c">—</td><td>฿44,900 per unit</td></tr>
+              <tr><td><b>AppleCare for Business</b> (~10%)</td><td class="num-c">฿112,250</td><td class="num-c">—</td><td>estimate · actual per quote</td></tr>
+              <tr><td><b>M365 Business Premium</b>, 25 users</td><td class="num-c">—</td><td class="num-c">฿340,800</td><td>bought <b>only if</b> not already owned</td></tr>
+              <tr><td><b>MDM: Microsoft Intune</b> <span class="pill green">selected</span></td><td class="num-c">—</td><td class="num-c">฿0</td><td>included in Premium/E3/E5</td></tr>
+            </table>
+          </div>
+          <div class="rulebox"><span class="lk">📊</span><span>If the organization already has Business Premium / E3 → true incremental cost ≈ <b>฿1.23M (one-time)</b> · +฿0 license · +฿0 MDM — excluding ~2–4 weeks of in-house setup</span></div>
+          <div class="small-note">Upgrading Standard → Premium (25 users) = ฿90,525/year · figures are estimates for early decision-making; request a formal quote before purchasing</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Cost</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 11 RISKS ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Risks</div></div>
+      <div class="s-inner">
+        <div class="s-label">Risks &amp; Mitigations</div>
+        <h2 class="s-title">Risks to know before starting</h2>
+        <div class="s-sub">Each has a fix — most are solved by "test before rollout"</div>
+        <div class="s-body">
+          <div class="gcols">
+            <div class="col">
+              <div class="pit"><span class="ic">⚠️</span><div class="tx"><b>Windows-only apps</b> (internal tools, ActiveX, bank plugins) → run a POC for every one during pilot · fallback: VM (UTM/Parallels) or web version</div></div>
+              <div class="pit"><span class="ic">🖨️</span><div class="tx"><b>Legacy printers / file shares</b> → test AirPrint first · move files to SharePoint/OneDrive (sync instead of mapped drive)</div></div>
+              <div class="pit"><span class="ic">📋</span><div class="tx"><b>GPO does not apply to Mac</b> → every policy must move to MDM/Intune; if you rely heavily on GPO, plan the migration first</div></div>
+            </div>
+            <div class="col">
+              <div class="pit"><span class="ic">🧑‍💻</span><div class="tx"><b>Support team ramp-up</b> → write runbooks + train IT before the pilot · helpdesk must be able to operate the MDM console</div></div>
+              <div class="pit"><span class="ic">💰</span><div class="tx"><b>Hardware costs more than average PCs</b> → limit by role · Air for general users · compare full TCO (AppleCare + refresh cycle)</div></div>
+              <div class="pit"><span class="ic">🔤</span><div class="tx"><b>Thai fonts / cross-platform documents</b> → use standard org fonts (e.g. Noto Sans Thai) and test print preview on both sides</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Risks</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 12 ROADMAP ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Roadmap</div></div>
+      <div class="s-inner">
+        <div class="s-label">Roadmap</div>
+        <h2 class="s-title">4-phase pilot · ~3 months</h2>
+        <div class="s-sub">Start small, measure, then scale — no need to change everything at once</div>
+        <div class="s-body">
+          <div class="cards3">
+            <div class="pcard"><span class="pill">P0 · 2 weeks</span><h3>Assess &amp; design</h3><p>Inventory apps/systems · identify Windows-only apps · check existing licenses · set up Microsoft Intune and write the standard build</p></div>
+            <div class="pcard"><span class="pill">P1 · 4 weeks</span><h3>5–10 device pilot</h3><p>Configure ABM + Intune + Entra Join + Conditional Access · test real apps/printing/files · weekly feedback</p></div>
+            <div class="pcard"><span class="pill">P2 · 4 weeks</span><h3>Make it a standard</h3><p>Standard build per role · issue/return policy · helpdesk runbook · start moving files to SharePoint</p></div>
+          </div>
+          <div class="cards3">
+            <div class="pcard"><span class="pill">P3 · ongoing</span><h3>Scale &amp; review</h3><p>Roll out by role · re-review Windows-only apps every 6 months · measure actual TCO against plan</p></div>
+            <div class="pcard"><h3>Stakeholders</h3><p>IT Infrastructure · Security · pilot users (business unit) · Apple reseller</p></div>
+            <div class="pcard"><h3>Go / no-go criteria</h3><p>Core apps pass · helpdesk runs it independently · Conditional Access works in production · user satisfaction &gt; 80%</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Roadmap</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 13 CHECKLIST ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Checklist</div></div>
+      <div class="s-inner">
+        <div class="s-label">Next Actions</div>
+        <h2 class="s-title">Pre-start checklist</h2>
+        <div class="s-sub">Use this page as the working reference — only hand out Macs once it is complete</div>
+        <div class="s-body">
+          <div class="gcols">
+            <div class="checklist">
+              <div class="ck"><span class="box"></span>Register Apple Business Manager + add the reseller</div>
+              <div class="ck"><span class="box"></span>Check current licenses for Intune (Premium / E3)</div>
+              <div class="ck"><span class="box"></span>Inventory apps and systems tied to Windows</div>
+              <div class="ck"><span class="box"></span>Set up Microsoft Intune and draft the policy baseline</div>
+              <div class="ck"><span class="box"></span>Enable Conditional Access: compliant devices only</div>
+            </div>
+            <div class="checklist">
+              <div class="ck"><span class="box"></span>Turn on FileVault + escrow the recovery key in MDM</div>
+              <div class="ck"><span class="box"></span>Test printing / VPN / file shares in real conditions</div>
+              <div class="ck"><span class="box"></span>Train helpdesk + write runbook (enroll, wipe, repair)</div>
+              <div class="ck"><span class="box"></span>Run a 5–10 device pilot · measure for 4 weeks</div>
+              <div class="ck"><span class="box"></span>Request hardware + AppleCare quotes from the reseller</div>
+            </div>
+          </div>
+          <div class="small-note">Sources: apple.com/th · support.apple.com/guide/business (ABM/ADE) · microsoft.com/microsoft-365/business + /enterprise (pricing) · learn.microsoft.com/intune/fundamentals/licensing · jamf.com/pricing · iru.com/pricing — data as of 23/11/2026</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · Checklist</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+  </div>
+  <div class="pres-controls">
+    <button onclick="prevSlide()">◀ Prev</button>
+    <span class="counter" id="slideCounter">1 / 13</span>
+    <button onclick="nextSlide()">Next ▶</button>
+    <button onclick="toggleEditMode()">Edit</button>
+    <button onclick="exitPresentation()">✕ Close</button>
+  </div>
+</div>
+
+<div id="editBar">
+  <span class="badge">EDIT MODE</span>
+  <button onclick="addSlide()">＋ Add slide</button>
+  <button onclick="saveLocal()">💾 Save</button>
+  <button onclick="exportHtml()">⬇ Export HTML</button>
+  <button onclick="toggleEditMode()">✕ Exit Edit</button>
+</div>
+
+<script>
+/* ============ state ============ */
+let totalSlides = document.querySelectorAll('.pres-slide').length;
+let current = 0;
+let editMode = false;
+const overlay = document.getElementById('presOverlay');
+const container = document.getElementById('slideContainer');
+
+/* ============ scaling ============ */
+function scaleSlides(){
+  const scale = Math.min(container.clientWidth / 1920, container.clientHeight / 1080);
+  const ox = (container.clientWidth - 1920 * scale) / 2;
+  const oy = (container.clientHeight - 1080 * scale) / 2;
+  document.querySelectorAll('.pres-slide').forEach(s => {
+    s.style.width = '1920px';
+    s.style.height = '1080px';
+    s.style.transformOrigin = 'top left';
+    s.style.transform = 'scale(' + scale + ')';
+    s.style.left = ox + 'px';
+    s.style.top = oy + 'px';
+  });
+}
+window.addEventListener('resize', scaleSlides);
+if (window.MutationObserver) {
+  new MutationObserver(scaleSlides).observe(container, {childList:true, subtree:true});
+}
+
+/* ============ navigation ============ */
+function showSlide(i){
+  const slides = document.querySelectorAll('.pres-slide');
+  if (i < 0) i = 0;
+  if (i >= slides.length) i = slides.length - 1;
+  current = i;
+  slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+  totalSlides = slides.length;
+  document.getElementById('slideCounter').textContent = (i + 1) + ' / ' + totalSlides;
+  scaleSlides();
+}
+function nextSlide(){ showSlide(current + 1); }
+function prevSlide(){ showSlide(current - 1); }
+/* alias used by the QA harness (1-based) */
+function gotoSlide(i){ showSlide(i - 1); }
+function enterPresentation(){
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  showSlide(current);
+  try { if (overlay.requestFullscreen) overlay.requestFullscreen().catch(()=>{}); } catch(e){}
+}
+function exitPresentation(){
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+  try { if (document.fullscreenElement) document.exitFullscreen(); } catch(e){}
+}
+document.addEventListener('keydown', e => {
+  if (!overlay.classList.contains('active')) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+  else if (e.key === 'Home') { e.preventDefault(); showSlide(0); }
+  else if (e.key === 'End') { e.preventDefault(); showSlide(totalSlides - 1); }
+  else if (e.key === 'Escape') { if (editMode) toggleEditMode(); else exitPresentation(); }
+});
+/* touch swipe */
+let touchX = null;
+overlay.addEventListener('touchstart', e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+overlay.addEventListener('touchend', e => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 60) { dx < 0 ? nextSlide() : prevSlide(); }
+  touchX = null;
+}, {passive:true});
+
+/* ============ website nav ============ */
+function showSection(id){
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const link = Array.from(document.querySelectorAll('.nav-link')).find(l => l.getAttribute('onclick').indexOf(id) >= 0);
+  if (link) link.classList.add('active');
+  const el = document.getElementById('sec-' + id);
+  if (el) el.scrollIntoView({behavior:'auto', block:'start'});
+}
+
+/* ============ diagram clone (website -> slide) ============ */
+[['#archHost svg','#archSlideHost']].forEach(p => {
+  const src = document.querySelector(p[0]);
+  const dst = document.querySelector(p[1]);
+  if (!src) throw new Error('diagram source missing: ' + p[0]);
+  if (!dst) throw new Error('diagram host missing: ' + p[1]);
+  if (!dst.querySelector('svg')) dst.appendChild(src.cloneNode(true));
+});
+
+/* ============ edit mode ============ */
+function toggleEditMode(){
+  editMode = !editMode;
+  if (editMode) {
+    if (!overlay.classList.contains('active')) enterPresentation();
+    document.body.classList.add('edit-active');
+    enableEditing();
+  } else {
+    document.body.classList.remove('edit-active');
+    disableEditing();
+  }
+}
+function enableEditing(){
+  document.querySelectorAll('.pres-slide .s-title, .pres-slide .s-sub, .pres-slide .step .tx, .pres-slide .pcard h3, .pres-slide .pcard p, .pres-slide .tbl-s td, .pres-slide figcaption, .pres-slide .note, .pres-slide .ck, .pres-slide .dd li, .pres-slide .pit .tx, .pres-slide h2, .pres-slide p, .pres-slide .lead, .pres-slide .kicker')
+    .forEach(el => el.setAttribute('contenteditable', 'true'));
+}
+function disableEditing(){
+  document.querySelectorAll('[contenteditable="true"]').forEach(el => el.removeAttribute('contenteditable'));
+}
+function refreshManageBars(){
+  totalSlides = document.querySelectorAll('.pres-slide').length;
+  document.getElementById('slideCounter').textContent = (current + 1) + ' / ' + totalSlides;
+}
+function moveSlide(btn, dir){
+  const slide = btn.closest('.pres-slide');
+  const slides = Array.from(document.querySelectorAll('.pres-slide'));
+  const idx = slides.indexOf(slide);
+  const target = idx + dir;
+  if (target < 0 || target >= slides.length) return;
+  if (dir < 0) slides[idx].parentNode.insertBefore(slide, slides[target]);
+  else slides[target].parentNode.insertBefore(slides[target], slide);
+  showSlide(target);
+  refreshManageBars();
+}
+function deleteSlide(btn){
+  const slide = btn.closest('.pres-slide');
+  if (!confirm('Delete this slide?')) return;
+  slide.remove();
+  refreshManageBars();
+  showSlide(Math.min(current, totalSlides - 1));
+}
+function addSlide(){
+  const tpl = prompt('Add slide — enter the slide title:');
+  if (!tpl) return;
+  const div = document.createElement('div');
+  div.className = 'pres-slide';
+  div.innerHTML =
+    '<div class="s-top"></div>' +
+    '<div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">New slide</div></div>' +
+    '<div class="s-inner"><div class="s-label">New slide</div>' +
+    '<h2 class="s-title">' + tpl.replace(/</g,'&lt;') + '</h2>' +
+    '<div class="s-sub">Click to edit the text</div>' +
+    '<div class="s-body"><div class="pcard"><p>New slide content — editable immediately in Edit Mode</p></div></div></div>' +
+    '<div class="s-foot"><span>macOS in a Microsoft organization</span><span class="pg"></span></div>' +
+    '<div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>';
+  const slides = document.querySelectorAll('.pres-slide');
+  slides[current].parentNode.insertBefore(div, slides[current].nextSibling);
+  if (editMode) enableEditing();
+  showSlide(current + 1);
+  refreshManageBars();
+}
+function saveLocal(){
+  const data = Array.from(document.querySelectorAll('.pres-slide')).map(s => s.innerHTML);
+  localStorage.setItem('macos_ms_deck_en', JSON.stringify(data));
+  alert('Saved ' + data.length + ' slides to localStorage');
+}
+function exportHtml(){
+  const data = Array.from(document.querySelectorAll('.pres-slide')).map(s => s.innerHTML);
+  localStorage.setItem('macos_ms_deck_en', JSON.stringify(data));
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelectorAll('.pres-slide').forEach((s, i) => { if (data[i]) s.innerHTML = data[i]; });
+  const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'macos-in-microsoft-org-en.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function restoreLocal(){
+  const raw = localStorage.getItem('macos_ms_deck_en');
+  if (!raw) return;
+  try {
+    const data = JSON.parse(raw);
+    const slides = document.querySelectorAll('.pres-slide');
+    if (data.length === slides.length) {
+      data.forEach((html, i) => { slides[i].innerHTML = html; });
+    }
+  } catch(e){}
+}
+restoreLocal();
+window.addEventListener('load', scaleSlides);
+scaleSlides();
+</script>
+</body>
+</html>
