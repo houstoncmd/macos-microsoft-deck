@@ -236,6 +236,24 @@ body.edit-active .manage-bar{display:flex}
     <div class="wcard"><div class="num">5</div><h3>Network, Print, File</h3><ul><li>Wi-Fi/VPN via profiles pushed by MDM</li><li>Printing: AirPrint or Universal Print (replacing the print server)</li><li>Files: SharePoint/OneDrive instead of SMB shares</li></ul></div>
     <div class="wcard"><div class="num">6</div><h3>Support &amp; Skills</h3><ul><li>Helpdesk must know macOS basics + the MDM console</li><li>Spare stock / AppleCare for Business</li><li>Policy: who gets a Mac (role-based) + BYO rules</li></ul></div>
   </div>
+  <h2 style="margin-top:44px">RACI matrix — IT Support / Developer / Vendor</h2>
+  <p class="sub">Who does it (R) · who approves (A) · who is consulted (C) · who is informed (I) — applied to every step from the first-10-device pilot</p>
+  <div class="tbl-wrap">
+    <table class="tbl-s">
+      <tr><th style="width:520px">Activity</th><th style="width:180px" class="ctr">IT Support</th><th style="width:180px" class="ctr">Developer</th><th style="width:180px" class="ctr">Vendor</th></tr>
+      <tr><td>Procure devices + bind Apple Business Manager</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+      <tr><td>Zero-touch setup + enroll into Microsoft Intune</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+      <tr><td>MDM policy, compliance, FileVault escrow</td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+      <tr><td>Entra ID, Conditional Access, MFA</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+      <tr><td>patch / update macOS + scheduled hotfixes</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+      <tr><td>General org apps (M365, Teams, browsers)</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+      <tr><td>Dev toolchain (Xcode, Homebrew, internal repo)</td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td></tr>
+      <tr><td>Helpdesk Tier-1 + day-to-day issues</td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td></tr>
+      <tr><td>Repairs/replacement (RMA) + AppleCare</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+      <tr><td>Test LOB/org apps + report pilot results</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+    </table>
+  </div>
+  <div class="note" style="margin-top:22px">💡 R = Responsible does the work · A = Accountable approves/owns the outcome (one A per activity) · C = Consulted · I = Informed — anything the vendor performs must be written into the SLA</div>
 </section>
 
 <section class="sec" id="sec-architecture">
@@ -359,10 +377,10 @@ body.edit-active .manage-bar{display:flex}
   </div>
   <div class="card-grid g2" style="margin-top:26px">
     <div class="wcard"><h3>🤝 Support split: in-house IT vs vendor</h3><ul><li><b>In-house IT:</b> Entra ID/Conditional Access/licenses · MDM policy + compliance · issue/return policy · Helpdesk Tier-1 · approving org apps</li><li><b>Vendor (after-sales):</b> enroll org software into ABM/MDM · patch/update + hotfix · pre-delivery setup · repairs/RMA via Apple-certified center · training + SLA</li></ul></div>
-    <div class="wcard"><h3>🏛️ Experienced providers (verified from public sources)</h3><ul><li><b>Com7 Business</b> (com7business.com): ABM+MDM zero-touch, full lifecycle, iCare Apple-certified center, supports M365/SAP/Salesforce + in-house apps</li><li><b>UiT</b> (uit.co.th): System Integrator since 2001 — network/data center/VDI/IT leasing + after-sales (public references are hospitals — request Mac/bank references)</li><li><b>Banks using Mac for development</b> (SCB, Krungsri, KTB): request references/site examples from the provider before quoting</li></ul></div>
+    <div class="wcard"><h3>🏛️ Experienced providers (verified from public sources)</h3><ul><li><b>Com7 Business</b> (com7business.com): ABM+MDM zero-touch, full lifecycle, iCare Apple-certified center, supports M365/SAP/Salesforce + in-house apps</li><li><b>UIH</b> (uih.co.th): digital-infrastructure MSP — Managed Services (NaaS, SD-WAN, WiFi as a Service), Cloud &amp; Data Center (AWS/Azure/GCP), Security Services + Fault/Performance Report portal (request Mac/bank references)</li><li><b>Banks using Mac for development</b> (SCB, Krungsri, KTB): request references/site examples from the provider before quoting</li></ul></div>
   </div>
   <div class="sec-foot">
-    <span>Sources: apple.com/th · support.apple.com/guide/business · microsoft.com/microsoft-365 · learn.microsoft.com/intune · jamf.com/pricing · iru.com/pricing · com7business.com · uit.co.th</span>
+    <span>Sources: apple.com/th · support.apple.com/guide/business · microsoft.com/microsoft-365 · learn.microsoft.com/intune · jamf.com/pricing · iru.com/pricing · com7business.com · uih.co.th</span>
     <span>Data as of 23/11/2026</span>
   </div>
 </section>
@@ -670,17 +688,48 @@ body.edit-active .manage-bar{display:flex}
         <div class="s-body">
           <div class="cards3">
             <div class="pcard"><span class="pill green">✓ verified</span><h3>Com7 Business</h3><p>• ABM + MDM zero-touch — "manage 10 or 10,000 devices"<br>• Full lifecycle: procurement → replacement → recycling<br>• iCare service center certified by Apple (Apple-certified technicians)<br>• Supports M365, Salesforce, SAP, Adobe + in-house-built apps<br>• Per-organization app environment setup + training</p></div>
-            <div class="pcard"><span class="pill green">✓ verified</span><h3>UiT — Universal Information Technology</h3><p>• System Integrator since 2001 · registered capital THB 10M<br>• Core work: network, Smart Data Center, HCI, <b>VDI</b>, IT Leasing<br>• After-sales service for computer systems<br>• ⚠️ Public website references are hospitals (Rajavithi, Ramathibodi) — <b>no Mac/bank sites found yet</b> → request references before deciding</p></div>
-            <div class="pcard"><span class="pill warn">Industry-level reference</span><h3>Banks using Mac for development</h3><p>• <b>SCB · Krungsri · KTB</b> — MacBook used mainly in development/digital teams<br>• Common practice observed in Thailand's IT job market<br>• Formal documentation → <b>request via the provider</b> (Com7 Business / UiT) or ask for a site reference before the real quote</p></div>
+            <div class="pcard"><span class="pill green">✓ verified</span><h3>UIH — United Information Highway</h3><p>• Digital-infrastructure MSP — "Leading Digital Infrastructure &amp; Solution Provider in ASEAN"<br>• Services: Managed Services (NaaS, SD-WAN, WiFi as a Service), Cloud &amp; Data Center (AWS/Azure/GCP), Security Services<br>• Support portal: Fault Report · Performance Report · Service Center (SLA-based)<br>• ⚠️ Published customer stories are retail/healthcare — <b>no direct bank/Apple case found</b> → request references</p></div>
+            <div class="pcard"><span class="pill warn">Industry-level reference</span><h3>Banks using Mac for development</h3><p>• <b>SCB · Krungsri · KTB</b> — MacBook used mainly in development/digital teams<br>• Common practice observed in Thailand's IT job market<br>• Formal documentation → <b>request via the provider</b> (Com7 Business / UIH) or ask for a site reference before the real quote</p></div>
           </div>
-          <div class="small-note">Sources: com7business.com/apple-solutions/business · com7business.com/hardware/mac · uit.co.th/about · public searches did not surface direct documentation for the three banks → confirm with the vendor before using in a real proposal</div>
+          <div class="small-note">Sources: com7business.com/apple-solutions/business · com7business.com/hardware/mac · uih.co.th/about/company + /category/customer-stories · public searches did not surface direct documentation for the three banks → confirm with the vendor before using in a real proposal</div>
         </div>
       </div>
       <div class="s-foot"><span>macOS in a Microsoft organization · Partners &amp; Banks</span><span class="pg"></span></div>
       <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
     </div>
 
-    <!-- ========== 15 CHECKLIST ========== -->
+    <!-- ========== 15 RACI ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">RACI</div></div>
+      <div class="s-inner">
+        <div class="s-label">RACI Matrix</div>
+        <h2 class="s-title">RACI matrix — IT Support / Developer / Vendor</h2>
+        <div class="s-sub">Who does it (R) · who approves (A) · who is consulted (C) · who is informed (I) — from the first-10-device pilot through scale-up</div>
+        <div class="s-body">
+          <div class="tbl-wrap">
+            <table class="tbl-s">
+              <tr><th style="width:760px">Activity</th><th style="width:240px" class="ctr">IT Support</th><th style="width:240px" class="ctr">Developer</th><th style="width:240px" class="ctr">Vendor</th></tr>
+              <tr><td>Procure devices + bind Apple Business Manager</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+              <tr><td>Zero-touch setup + enroll into Microsoft Intune</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+              <tr><td>MDM policy, compliance, FileVault escrow</td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+              <tr><td>Entra ID, Conditional Access, MFA</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+              <tr><td>patch / update macOS + scheduled hotfixes</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+              <tr><td>General org apps (M365, Teams, browsers)</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+              <tr><td>Dev toolchain (Xcode, Homebrew, internal repo)</td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td></tr>
+              <tr><td>Helpdesk Tier-1 + day-to-day issues</td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td></tr>
+              <tr><td>Repairs/replacement (RMA) + AppleCare</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+              <tr><td>Test LOB/org apps + report pilot results</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+            </table>
+          </div>
+          <div class="small-note"><span style="color:#16a34a;font-weight:800">R</span> = Responsible does the work · <span style="color:#2563eb;font-weight:800">A</span> = Accountable approves/owns (one A per activity) · <span style="color:#a16207;font-weight:800">C</span> = Consulted · <span style="color:#94a3b8;font-weight:800">I</span> = Informed — everything the Vendor performs must be in the SLA</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS in a Microsoft organization · RACI</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 16 CHECKLIST ========== -->
     <div class="pres-slide">
       <div class="s-top"></div>
       <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Checklist</div></div>

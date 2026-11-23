@@ -234,8 +234,26 @@ body.edit-active .manage-bar{display:flex}
     <div class="wcard"><div class="num">3</div><h3>Licensing</h3><ul><li>M365 Business Premium / E3 ขึ้นไป (รวม Intune)</li><li>Microsoft 365 apps for Mac (Standard ขึ้นไป)</li><li>Defender for Endpoint บน macOS</li></ul></div>
     <div class="wcard"><div class="num">4</div><h3>Apps &amp; Compatibility</h3><ul><li>สำรวจ LOB app / internal web app ที่ผูก IE/ActiveX</li><li>ทางเลือกสำหรับ app ที่มีเฉพาะ Windows: VM (UTM/Parallels)</li><li>Adobe, Teams, Office, browser — ใช้ได้ native</li></ul></div>
     <div class="wcard"><div class="num">5</div><h3>Network, Print, File</h3><ul><li>Wi-Fi/VPN ผ่าน profile ที่ push โดย MDM</li><li>ปริ้นเตอร์: AirPrint หรือ Universal Print (แทน print server เดิม)</li><li>ไฟล์: SharePoint/OneDrive แทน SMB share เดิม</li></ul></div>
-    <div class="wcard"><div class="num">6</div><h3>Support &amp; Skills</h3><ul><li>ทีม helpdesk ต้องรู้ macOS basics + MDM console</li><li>Stock spare / AppleCare for Business</li><li>นโยบาย: ใครได้ Mac (role-based) + กฎ BYO</li></ul></div>
+    <div class="wcard"><div class="num">6</div><h3>Support &amp; Skills</h3><ul><li>Helpdesk รู้ macOS basics + MDM console</li><li>Stock spare / AppleCare for Business</li><li>นโยบาย: ใครได้ Mac (role-based) + กฎ BYO</li></ul></div>
   </div>
+  <h2 style="margin-top:44px">ตาราง RACI — IT Support / Developer / Vendor</h2>
+  <p class="sub">ใครทำ (R) · ใครอนุมัติ (A) · ใครถูกปรึกษา (C) · ใครรับรู้ (I) — ใช้กำกับงานทุกขั้นตอนตั้งแต่ pilot 10 เครื่องแรก</p>
+  <div class="tbl-wrap">
+    <table class="tbl-s">
+      <tr><th style="width:520px">งาน / กิจกรรม</th><th style="width:180px" class="ctr">IT Support</th><th style="width:180px" class="ctr">Developer</th><th style="width:180px" class="ctr">Vendor</th></tr>
+      <tr><td>จัดซื้อเครื่อง + ผูก Apple Business Manager</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+      <tr><td>Zero-touch setup + enroll เข้า Microsoft Intune</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+      <tr><td>MDM policy, compliance, FileVault escrow</td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+      <tr><td>Entra ID, Conditional Access, MFA</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+      <tr><td>patch / update macOS + hotfix ตามรอบ</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+      <tr><td>แอปองค์กรทั่วไป (M365, Teams, browser)</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+      <tr><td>เครื่องมือ dev (Xcode, Homebrew, repo ภายใน)</td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td></tr>
+      <tr><td>Helpdesk Tier-1 + ปัญหาใช้งานประจำวัน</td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td></tr>
+      <tr><td>ซ่อม/เปลี่ยน (RMA) + AppleCare</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+      <tr><td>ทดสอบ LOB/แอปองค์กร + รายงานผล pilot</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+    </table>
+  </div>
+  <div class="note" style="margin-top:22px">💡 R = รับผิดชอบลงมือทำ · A = อนุมัติ/รับผิดชอบสุดท้าย (1 งาน = 1 A) · C = ถูกปรึกษา · I = รับรู้ — งานที่ vendor ทำต้องระบุในสัญญา SLA เสมอ</div>
 </section>
 
 <section class="sec" id="sec-architecture">
@@ -360,10 +378,10 @@ body.edit-active .manage-bar{display:flex}
   </div>
   <div class="card-grid g2" style="margin-top:26px">
     <div class="wcard"><h3>🤝 ขอบเขตการสนับสนุน: IT ภายใน vs Vendor</h3><ul><li><b>IT ภายใน:</b> Entra ID/Conditional Access/license · MDM policy + compliance · นโยบายเบิก/คืน · Helpdesk Tier-1 · อนุมัติแอปองค์กร</li><li><b>Vendor (หลังการขาย):</b> enroll แอปที่องค์กรใช้เข้า ABM/MDM · patch/update + hotfix · ตั้งค่าเครื่องก่อนส่งมอบ · ซ่อม/RMA ผ่านศูนย์ Apple รับรอง · ฝึกอบรม + SLA</li></ul></div>
-    <div class="wcard"><h3>🏛️ ผู้ให้บริการที่มีประสบการณ์ (ตรวจสอบจากแหล่งสาธารณะ)</h3><ul><li><b>Com7 Business</b> (com7business.com): ABM+MDM zero-touch, ดูแลตลอดวงจรอายุ, iCare ศูนย์ Apple รับรอง, รองรับ M365/SAP/Salesforce + แอปภายในองค์กร</li><li><b>UiT</b> (uit.co.th): System Integrator ตั้งแต่ 2544 — network/data center/VDI/IT leasing + บริการหลังการขาย (ผลงานสาธารณะเป็น รพ. — ควรขอ reference Mac/ธนาคารเพิ่ม)</li><li><b>ธนาคารที่ใช้ Mac ด้าน development</b> (SCB, Krungsri, KTB): ควรขอเอกสารอ้างอิง/ตัวอย่างหน้างานจากผู้ให้บริการก่อนเสนอราคา</li></ul></div>
+    <div class="wcard"><h3>🏛️ ผู้ให้บริการที่มีประสบการณ์ (ตรวจสอบจากแหล่งสาธารณะ)</h3><ul><li><b>Com7 Business</b> (com7business.com): ABM+MDM zero-touch, ดูแลตลอดวงจรออายุ, iCare ศูนย์ Apple รับรอง, รองรับ M365/SAP/Salesforce + แอปภายในองค์กร</li><li><b>UIH</b> (uih.co.th): MSP โครงสร้างพื้นฐานดิจิทัล — Managed Services (NaaS, SD-WAN, WiFi as a Service), Cloud &amp; Data Center (AWS/Azure/GCP), Security Services + ระบบ Fault/Performance Report (ควรขอ reference Mac/ธนาคารเพิ่ม)</li><li><b>ธนาคารที่ใช้ Mac ด้าน development</b> (SCB, Krungsri, KTB): ควรขอเอกสารอ้างอิง/ตัวอย่างหน้างานจากผู้ให้บริการก่อนเสนอราคา</li></ul></div>
   </div>
   <div class="sec-foot">
-    <span>แหล่งอ้างอิง: apple.com/th · support.apple.com/guide/business · microsoft.com/microsoft-365 · learn.microsoft.com/intune · jamf.com/pricing · iru.com/pricing · com7business.com · uit.co.th</span>
+    <span>แหล่งอ้างอิง: apple.com/th · support.apple.com/guide/business · microsoft.com/microsoft-365 · learn.microsoft.com/intune · jamf.com/pricing · iru.com/pricing · com7business.com · uih.co.th</span>
     <span>ข้อมูล ณ 23/11/2026</span>
   </div>
 </section>
@@ -672,17 +690,48 @@ body.edit-active .manage-bar{display:flex}
         <div class="s-body">
           <div class="cards3">
             <div class="pcard"><span class="pill green">✓ ตรวจสอบแล้ว</span><h3>Com7 Business</h3><p>• ABM + MDM zero-touch — "ดูแลอุปกรณ์ 10 หรือ 10,000 เครื่อง"<br>• ดูแลตลอดวงจรออายุ: จัดซื้อ → เปลี่ยน → รีไซเคิล<br>• iCare ศูนย์บริการรับรองโดย Apple (ช่างเทคนิค certified)<br>• รองรับ M365, Salesforce, SAP, Adobe + แอปพัฒนาภายในองค์กร<br>• ตั้งค่าสภาพแวดล้อมแอปเฉพาะองค์กร + ฝึกอบรม</p></div>
-            <div class="pcard"><span class="pill green">✓ ตรวจสอบแล้ว</span><h3>UiT — Universal Information Technology</h3><p>• System Integrator ตั้งแต่ปี 2544 · ทุนจดทะเบียน 10 ล้านบาท<br>• งานหลัก: network, Smart Data Center, HCI, <b>VDI</b>, IT Leasing<br>• บริการหลังการขายระบบคอมพิวเตอร์<br>• ⚠️ ผลงานสาธารณะบนเว็บเป็น รพ. (ราชวิถี, รามาธิบดี) — <b>ยังไม่พบหน้างาน Mac/ธนาคาร</b> → ขอ reference เพิ่มก่อนตัดสินใจ</p></div>
-            <div class="pcard"><span class="pill warn">อ้างอิงเชิงอุตสาหกรรม</span><h3>ธนาคารที่ใช้ Mac ด้าน development</h3><p>• <b>SCB · Krungsri · KTB</b> — ใช้ MacBook ในทีมพัฒนา/digital เป็นส่วนใหญ่<br>• เป็นแนวปฏิบัติที่พบในตลาดแรงงาน IT ไทย<br>• เอกสารอ้างอิงอย่างเป็นทางการ → <b>ขอผ่านผู้ให้บริการ</b> (Com7 Business / UiT) หรือขอตัวอย่างหน้างานก่อนเสนอราคาจริง</p></div>
+            <div class="pcard"><span class="pill green">✓ ตรวจสอบแล้ว</span><h3>UIH — United Information Highway</h3><p>• MSP โครงสร้างพื้นฐานดิจิทัล — "ผู้นำด้าน Digital Infrastructure &amp; Solution ใน ASEAN"<br>• บริการ: Managed Services (NaaS, SD-WAN, WiFi as a Service), Cloud &amp; Data Center (AWS/Azure/GCP), Security Services<br>• พอร์ตซัพพอร์ต: Fault Report · Performance Report · Service Center (ระบบ SLA)<br>• ⚠️ Customer Stories ที่เผยแพร่เป็นกลุ่มค้าปลีก/สุขภาพ — <b>ยังไม่พบเคสธนาคาร/Apple โดยตรง</b> → ขอ reference เพิ่ม</p></div>
+            <div class="pcard"><span class="pill warn">อ้างอิงเชิงอุตสาหกรรม</span><h3>ธนาคารที่ใช้ Mac ด้าน development</h3><p>• <b>SCB · Krungsri · KTB</b> — ใช้ MacBook ในทีมพัฒนา/digital เป็นส่วนใหญ่<br>• เป็นแนวปฏิบัติที่พบในตลาดแรงงาน IT ไทย<br>• เอกสารอ้างอิงอย่างเป็นทางการ → <b>ขอผ่านผู้ให้บริการ</b> (Com7 Business / UIH) หรือขอตัวอย่างหน้างานก่อนเสนอราคาจริง</p></div>
           </div>
-          <div class="small-note">แหล่งอ้างอิง: com7business.com/apple-solutions/business · com7business.com/hardware/mac · uit.co.th/about · ผลค้นหาสาธารณะ ไม่พบเอกสารยืนยันโดยตรงของทั้ง 3 ธนาคาร → ยืนยันกับ vendor ก่อนใช้ในข้อเสนอจริง</div>
+          <div class="small-note">แหล่งอ้างอิง: com7business.com/apple-solutions/business · com7business.com/hardware/mac · uih.co.th/about/company + /category/customer-stories · ผลค้นหาสาธารณะ ไม่พบเอกสารยืนยันโดยตรงของทั้ง 3 ธนาคาร → ยืนยันกับ vendor ก่อนใช้ในข้อเสนอจริง</div>
         </div>
       </div>
       <div class="s-foot"><span>macOS ในองค์กร Microsoft · ผู้ให้บริการ &amp; กรณีธนาคาร</span><span class="pg"></span></div>
       <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
     </div>
 
-    <!-- ========== 15 CHECKLIST ========== -->
+    <!-- ========== 15 RACI ========== -->
+    <div class="pres-slide">
+      <div class="s-top"></div>
+      <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">RACI</div></div>
+      <div class="s-inner">
+        <div class="s-label">RACI Matrix</div>
+        <h2 class="s-title">ตาราง RACI — IT Support / Developer / Vendor</h2>
+        <div class="s-sub">ใครทำ (R) · ใครอนุมัติ (A) · ใครถูกปรึกษา (C) · ใครรับรู้ (I) — ใช้กำกับตั้งแต่ pilot 10 เครื่องแรกจนถึงขยายผล</div>
+        <div class="s-body">
+          <div class="tbl-wrap">
+            <table class="tbl-s">
+              <tr><th style="width:760px">งาน / กิจกรรม</th><th style="width:240px" class="ctr">IT Support</th><th style="width:240px" class="ctr">Developer</th><th style="width:240px" class="ctr">Vendor</th></tr>
+              <tr><td>จัดซื้อเครื่อง + ผูก Apple Business Manager</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+              <tr><td>Zero-touch setup + enroll เข้า Microsoft Intune</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+              <tr><td>MDM policy, compliance, FileVault escrow</td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+              <tr><td>Entra ID, Conditional Access, MFA</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+              <tr><td>patch / update macOS + hotfix ตามรอบ</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+              <tr><td>แอปองค์กรทั่วไป (M365, Teams, browser)</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+              <tr><td>เครื่องมือ dev (Xcode, Homebrew, repo ภายใน)</td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td></tr>
+              <tr><td>Helpdesk Tier-1 + ปัญหาใช้งานประจำวัน</td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td></tr>
+              <tr><td>ซ่อม/เปลี่ยน (RMA) + AppleCare</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#94a3b8;font-weight:800">I</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td></tr>
+              <tr><td>ทดสอบ LOB/แอปองค์กร + รายงานผล pilot</td><td class="ctr"><span style="color:#2563eb;font-weight:800">A</span></td><td class="ctr"><span style="color:#16a34a;font-weight:800">R</span></td><td class="ctr"><span style="color:#a16207;font-weight:800">C</span></td></tr>
+            </table>
+          </div>
+          <div class="small-note"><span style="color:#16a34a;font-weight:800">R</span> = Responsible รับผิดชอบลงมือทำ · <span style="color:#2563eb;font-weight:800">A</span> = Accountable อนุมัติ/รับผิดชอบสุดท้าย (1 งาน = 1 A) · <span style="color:#a16207;font-weight:800">C</span> = Consulted ถูกปรึกษา · <span style="color:#94a3b8;font-weight:800">I</span> = Informed รับรู้ — งานที่ Vendor รับผิดชอบต้องระบุในสัญญา SLA เสมอ</div>
+        </div>
+      </div>
+      <div class="s-foot"><span>macOS ในองค์กร Microsoft · RACI</span><span class="pg"></span></div>
+      <div class="manage-bar"><button onclick="moveSlide(this,-1)">▲</button><button onclick="moveSlide(this,1)">▼</button><button onclick="deleteSlide(this)">🗑️</button></div>
+    </div>
+
+    <!-- ========== 16 CHECKLIST ========== -->
     <div class="pres-slide">
       <div class="s-top"></div>
       <div class="s-head"><div class="lhs"><span class="sq"></span>MAC OS × MICROSOFT 365</div><div class="rhs">Checklist</div></div>
